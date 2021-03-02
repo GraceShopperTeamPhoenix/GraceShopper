@@ -1,6 +1,10 @@
 const User = require('./user')
+
+const Product = require('./products')
+
 const Cart = require('./cart')
 const CartItem = require('./cartItem')
+
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -23,6 +27,8 @@ Cart.belongsTo(User)
  */
 module.exports = {
   User,
+  Product,
   Cart,
   CartItem
+
 }
