@@ -21,22 +21,32 @@ export class Cart extends React.Component {
   }
 
   render() {
+    const styles = {
+      cartproduct: {
+        display: 'flex',
+        margin: '10px',
+        border: '2px black solid'
+      }
+    }
     if (this.props.cart.id) {
       return (
         <div>
           <h1>CART</h1>
           {this.props.cart.cartItems.map(item => {
             return (
-              <div key={item.id}>
-                <h2>Item name</h2>
-                {/* <p>{item.product.name}</p> */}
-                <img src="/succulent.jpg" width="50px" />
-                {/* <img src='{item.product.imageUrl}' width='50px'/> */}
-                <p>
-                  <button>+</button>Quantity: {item.quantity}
-                  <button>-</button>
-                </p>
-                <button>Delete Item</button>
+              <div key={item.id} id="cart-product" style={styles.cartproduct}>
+                <div>
+                  <img src={item.product.imageUrl} width="75px" />
+                </div>
+                <div>
+                  <h2>{item.product.name}</h2>
+                  <p>
+                    <button>-</button>
+                    Quantity: {item.quantity}
+                    <button>+</button>
+                  </p>
+                  <button>Delete Item</button>
+                </div>
               </div>
             )
           })}
