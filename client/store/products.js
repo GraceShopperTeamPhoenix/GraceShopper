@@ -27,12 +27,14 @@ export const fetchProducts = () => {
 
 //reducer
 
-const initialState = {}
+const initialState = {
+  all: []
+}
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return action.products
+      return {all: action.products}
     default:
       return state
   }
