@@ -1,12 +1,12 @@
 const {green, red} = require('chalk')
 const faker = require('faker')
 
-const {db} = require('../server/db')
-const User = require('./server/db/user')
-const Product = require('./server/db/product')
-const Cart = require('./server/db/cart')
-const Cartitem = require('./server/db/cartitem')
-const Order = require('./server/db/order')
+const db = require('../server/db')
+const User = require('../server/db/models/user')
+const Product = require('../server/db/models/products')
+const Cart = require('../server/db/models/cart')
+const Cartitem = require('../server/db/models/cartItem')
+const Order = require('../server/db/models/order')
 
 // ---- seeding User ----------
 let user_build = []
@@ -16,7 +16,7 @@ for (let i = 0; i <= 110; i++) {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     address: `${faker.address.streetAddress()},${faker.address.city()},${faker.address.state()},${faker.address.zipCode()}`,
-    email: `${this.firstName}_${this.lastName}@${faker.internet.domainName()}`,
+    email: `${faker.name.firstName()}_${faker.name.lastName()}@${faker.internet.domainName()}`,
     password: '12345',
     isAdmin: false
   }
@@ -99,7 +99,7 @@ let Cartitem_build = []
 
 for (let i = 1; i <= 50; i++) {
   let Cartitem = {
-    CartId: Math.ceil(Math.random() * 10),
+    cartId: Math.ceil(Math.random() * 10),
     productId: Math.ceil(Math.random() * 100),
     quantity: Math.ceil(Math.random() * 5)
   }
