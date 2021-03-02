@@ -19,3 +19,8 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.user-container {
+  margin: 1em;
+  padding: 1em;
+}
