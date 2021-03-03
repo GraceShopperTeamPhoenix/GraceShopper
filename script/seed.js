@@ -82,7 +82,7 @@ for (let i = 0; i <= 110; i++) {
       name2[Math.floor(Math.random() * 11)],
     description: faker.lorem.text(),
     imageUrl: '/succulent.jpg',
-    price: faker.commerce.price(),
+    price: 123,
     quantity: Math.ceil(Math.random() * 25),
     category: 'plants'
   }

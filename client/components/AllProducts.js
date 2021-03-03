@@ -21,7 +21,7 @@ export class AllProducts extends React.Component {
               <Link to={`/products/${product.id}`}>{product.name}</Link>
               <br />
               <img src="/succulent.jpg" width="100px" />
-              <p>{product.price}</p>
+              <p>$ {product.price / 100}</p>
               <button type="button">Add to Cart</button>
             </div>
           ))}
