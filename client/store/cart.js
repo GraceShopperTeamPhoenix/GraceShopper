@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../history'
 
 /**
  * ACTION TYPES
@@ -24,10 +23,8 @@ const createdGuestCart = cart => ({type: CREATED_GUEST_CART, cart})
  * THUNK CREATORS
  */
 export const myCart = id => async dispatch => {
-  console.log('in cart thunk')
   try {
     const res = await axios.get(`/api/cart/${id}`)
-    console.log('got cart from axios: ', res.data)
     dispatch(getCart(res.data || defaultCart))
   } catch (err) {
     console.error(err)
@@ -45,10 +42,10 @@ export const newGuestCart = () => async dispatch => {
   }
 }
 
-export const guestCart = id => async dispatch => {
-  console.log('in cart thunk')
+export const guestCart = () => async dispatch => {
+  console.log('in guestCart thunk')
   try {
-    const res = await axios.get(`/api/cart//guest/${id}`)
+    const res = await axios.get(`/api/cart/guest/`)
     console.log('got guest cart from axios: ', res.data)
     dispatch(getGuestCart(res.data))
   } catch (err) {
