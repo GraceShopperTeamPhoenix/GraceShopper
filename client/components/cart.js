@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {myCart, guestCart} from '../store'
+import {myOrder, guestOrder} from '../store'
 
 export class Cart extends React.Component {
   constructor() {
@@ -11,23 +11,23 @@ export class Cart extends React.Component {
     console.log('CART COMPONENT MOUNTED')
     console.log('PROPS =>', this.props)
     const id = this.props.user.id
-    const cart = this.props.cart
-    if (id && !cart.id) {
-      this.props.getMyCart(id)
-    } else if (id && cart.userId !== id) {
-      this.props.getMyCart(id)
+    const order = this.props.order
+    if (id && !order.id) {
+      this.props.getMyOrder(id)
+    } else if (id && order.userId !== id) {
+      this.props.getMyOrder(id)
     } else if (!id) {
       // if no user is associated with state, get guest cart
-      this.props.getGuestCart()
+      this.props.getGuestOrder()
     }
   }
 
   componentDidUpdate() {
     console.log('CART COMPONENT UPDATED')
     const id = this.props.user.id
-    const cart = this.props.cart
-    if (id && !cart.id) {
-      this.props.getMyCart(id)
+    const order = this.props.order
+    if (id && !order.id) {
+      this.props.getMyOrder(id)
     }
   }
 
@@ -57,17 +57,18 @@ export class Cart extends React.Component {
       }
     }
     const user = this.props.user
-    const cart = this.props.cart
+    const order = this.props.order
 
-    if (user.id && cart.id && cart.cartItems.length) {
+    console.log(order)
+    if (user.id && order.id) {
       let cartTotal = 0
       return (
         <div>
           <h1>My Cart</h1>
           <div id="cart-container" style={styles.cartcontainer}>
             <div>
-              {this.props.cart.cartItems.map(item => {
-                let itemTotal = item.product.price * item.quantity
+              {order.products.map(item => {
+                let itemTotal = item.price / 100 * item.quantity
                 cartTotal += itemTotal
                 console.log('cart total: ', cartTotal)
                 return (
@@ -77,11 +78,11 @@ export class Cart extends React.Component {
                     style={styles.cartproduct}
                   >
                     <div>
-                      <img src={item.product.imageUrl} width="75px" />
+                      <img src={item.imageUrl} width="75px" />
                     </div>
 
                     <div>
-                      <h2>{item.product.name}</h2>
+                      <h2>{item.name}</h2>
                     </div>
 
                     <div>
@@ -120,15 +121,15 @@ export class Cart extends React.Component {
  */
 const mapState = state => {
   return {
-    cart: state.cart,
+    order: state.order,
     user: state.user
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getMyCart: id => dispatch(myCart(id)),
-    getGuestCart: () => dispatch(guestCart())
+    getMyOrder: id => dispatch(myOrder(id)),
+    getGuestOrder: () => dispatch(guestOrder())
   }
 }
 
