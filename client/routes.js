@@ -8,7 +8,9 @@ import {
   UserHome,
   AllUsers,
   Cart,
-  AllProducts
+  AllProducts,
+  SingleProduct,
+  ConfirmationPage
 } from './components'
 import {me} from './store'
 
@@ -23,29 +25,30 @@ class Routes extends Component {
   render() {
     const {isLoggedIn} = this.props
     const {isAdmin} = this.props
+    console.log('isAdmin', isAdmin)
 
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/products" component={AllProducts} />
+        <Route exact path="/products" component={AllProducts} />
         <Route path="/cart" component={Cart} />
-        <Route path="/users" component={AllUsers} />
+        <Route path="/products/:id" component={SingleProduct} />
+        <Route path="/confirmation" component={ConfirmationPage} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
             <Route path="/products" component={AllProducts} />
+            {isAdmin && (
+              <Switch>
+                {/* Routes placed here are only available after logging in */}
+                <Route path="/users" component={AllUsers} />
+              </Switch>
+            )}
           </Switch>
         )}
-        {isAdmin && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/users" component={AllUsers} />
-          </Switch>
-        )}
-
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
@@ -59,12 +62,12 @@ class Routes extends Component {
  * CONTAINER
  */
 const mapState = state => {
-  console.log('mapping state with state', state)
+  console.log(state)
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
-    isAdmin: state.user.isAdmin
+    isAdmin: !!state.user.isAdmin
   }
 }
 

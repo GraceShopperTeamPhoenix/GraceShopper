@@ -16,13 +16,12 @@ export class AllProducts extends React.Component {
       return (
         <div>
           <h1>Products</h1>
-          {console.log(products)}
           {products.map(product => (
             <div key={product.id}>
               <Link to={`/products/${product.id}`}>{product.name}</Link>
               <br />
               <img src="/succulent.jpg" width="100px" />
-              <p>{product.price}</p>
+              <p>$ {product.price / 100}</p>
               <button type="button">Add to Cart</button>
             </div>
           ))}

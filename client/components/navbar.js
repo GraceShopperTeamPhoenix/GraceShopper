@@ -39,7 +39,6 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
           <Link to="/signup">Sign Up</Link>
           <Link to="/products">Products</Link>
           <Link to="/cart">Cart</Link>
-          <Link to="/users">Users</Link>
         </div>
       )}
     </nav>
@@ -53,7 +52,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    isAdmin: state.user.isAdmin
+    isAdmin: !!state.user.isAdmin
   }
 }
 

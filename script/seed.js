@@ -4,9 +4,8 @@ const faker = require('faker')
 const db = require('../server/db')
 const User = require('../server/db/models/user')
 const Product = require('../server/db/models/products')
-const Cart = require('../server/db/models/cart')
-const Cartitem = require('../server/db/models/cartItem')
 const Order = require('../server/db/models/order')
+const Order_Product = require('../server/db/models/order_product')
 
 // ---- seeding User ----------
 let user_build = []
@@ -83,7 +82,7 @@ for (let i = 0; i <= 110; i++) {
       name2[Math.floor(Math.random() * 11)],
     description: faker.lorem.text(),
     imageUrl: '/succulent.jpg',
-    price: faker.commerce.price(),
+    price: 123,
     quantity: Math.ceil(Math.random() * 25),
     category: 'plants'
   }
@@ -91,32 +90,34 @@ for (let i = 0; i <= 110; i++) {
 }
 const products = Product_build
 
-// ---- seeding Carts----------
-let Cart_build = []
+// ---- seeding Orders----------
+let Order_build = []
 
 for (let i = 1; i <= 10; i++) {
-  let Cart = {
+  let Order = {
     userId: i,
-    isActive: true
+    status: 'pending',
+    total: 50000
   }
-  Cart_build.push(Cart)
+  Order_build.push(Order)
 }
 
-const carts = Cart_build
+const orders = Order_build
 
-// ---- seeding Cartitem----------
-let Cartitem_build = []
+// ----- seeding Order_Product -------
+let Order_Product_build = []
 
 for (let i = 1; i <= 50; i++) {
-  let Cartitem = {
-    cartId: Math.ceil(Math.random() * 10),
+  let Order_Product = {
+    orderId: Math.ceil(Math.random() * 10),
     productId: Math.ceil(Math.random() * 100),
-    quantity: Math.ceil(Math.random() * 5)
+    quantity: Math.ceil(Math.random() * 5),
+    price: 1000
   }
-  Cartitem_build.push(Cartitem)
+  Order_Product_build.push(Order_Product)
 }
 
-const cartitems = Cartitem_build
+const order_products = Order_Product_build
 
 const seed = async () => {
   try {
@@ -125,8 +126,8 @@ const seed = async () => {
     // seed your database here!
     await User.bulkCreate(users)
     await Product.bulkCreate(products)
-    await Cart.bulkCreate(carts)
-    await Cartitem.bulkCreate(cartitems)
+    await Order.bulkCreate(orders)
+    await Order_Product.bulkCreate(order_products)
     console.log(green('Seeding success!'))
     db.close()
   } catch (err) {
