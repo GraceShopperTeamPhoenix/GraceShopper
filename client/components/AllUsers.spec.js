@@ -11,7 +11,7 @@ import store from '../store'
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
-describe('AllUsers', () => {
+describe.only('AllUsers', () => {
   let wrapper
 
   const users = [
@@ -30,7 +30,7 @@ describe('AllUsers', () => {
         <AllUsers user={users} />
       </Provider>
     )
-    const name = <div>jenny@lane.com</div>
-    expect(wrapper.contains(name)).to.equal(true)
+    const email = 'jenny@lane.com'
+    expect(wrapper.contains(email)).to.equal(true)
   })
 })
