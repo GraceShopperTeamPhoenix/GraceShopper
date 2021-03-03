@@ -33,21 +33,3 @@ router.get('/', authorize, async (req, res, next) => {
     next(err)
   }
 })
-
-router.post('/', async (req, res, next) => {
-  try {
-    const {firstName, lastName, address, email, password} = req.body
-    let user = await User.create({
-      firstName,
-      lastName,
-      address,
-      email,
-      password
-    })
-    user = await user.reload()
-    //get the up-to-date data from the database
-    res.json(user)
-  } catch (error) {
-    next(error)
-  }
-})
