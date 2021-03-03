@@ -11,9 +11,12 @@ export class Cart extends React.Component {
   componentDidMount() {
     console.log('COMPONENT MOUNTED')
     console.log('PROPS =>', this.props)
-    if (!this.props.user.id && this.props.cart.id) {
-      console.log('user id not found')
-      console.log('cart still associated')
+    const id = this.props.user.id
+    console.log('user id is ', id)
+    if (id && !this.props.cart.id) {
+      this.props.getMyCart(id)
+    } else if (id && this.props.cart.userId !== id) {
+      this.props.getMyCart(id)
     }
   }
 
@@ -21,8 +24,6 @@ export class Cart extends React.Component {
     console.log('COMPONENT UPDATED')
     const id = this.props.user.id || 2
     if (this.props.user.id && !this.props.cart.id) {
-      console.log('no cart')
-      console.log('id is ', id)
       this.props.getMyCart(id)
     }
     if (!id && !this.props.cart.id) {
@@ -55,7 +56,11 @@ export class Cart extends React.Component {
         padding: '5px'
       }
     }
-    if (this.props.cart.id && this.props.cart.cartItems.length) {
+    if (
+      this.props.user.id &&
+      this.props.cart.id &&
+      this.props.cart.cartItems.length
+    ) {
       let cartTotal = 0
       return (
         <div>
