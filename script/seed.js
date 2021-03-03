@@ -11,6 +11,26 @@ const Order = require('../server/db/models/order')
 // ---- seeding User ----------
 let user_build = []
 
+const normalUser = {
+  firstName: faker.name.firstName(),
+  lastName: faker.name.lastName(),
+  address: `${faker.address.streetAddress()},${faker.address.city()},${faker.address.state()},${faker.address.zipCode()}`,
+  email: 'user@graceshopper.com',
+  password: '12345',
+  isAdmin: false
+}
+
+const adminUser = {
+  firstName: faker.name.firstName(),
+  lastName: faker.name.lastName(),
+  address: `${faker.address.streetAddress()},${faker.address.city()},${faker.address.state()},${faker.address.zipCode()}`,
+  email: 'admin@graceshopper.com',
+  password: '12345',
+  isAdmin: true
+}
+user_build.push(normalUser)
+user_build.push(adminUser)
+
 for (let i = 0; i <= 110; i++) {
   let user = {
     firstName: faker.name.firstName(),
@@ -22,16 +42,6 @@ for (let i = 0; i <= 110; i++) {
   }
   user_build.push(user)
 }
-
-const adminUser = {
-  firstName: faker.name.firstName(),
-  lastName: faker.name.lastName(),
-  address: `${faker.address.streetAddress()},${faker.address.city()},${faker.address.state()},${faker.address.zipCode()}`,
-  email: 'admin@graceshopper.com',
-  password: '12345',
-  isAdmin: true
-}
-user_build.push(adminUser)
 
 const users = user_build
 
