@@ -16,7 +16,6 @@ export class AllProducts extends React.Component {
       return (
         <div>
           <h1>Products</h1>
-          {console.log(products)}
           {products.map(product => (
             <div key={product.id}>
               <Link to={`/products/${product.id}`}>{product.name}</Link>

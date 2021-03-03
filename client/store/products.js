@@ -17,7 +17,6 @@ export const fetchProducts = () => {
   return async dispatch => {
     try {
       const {data: products} = await Axios.get('/api/products')
-      console.log(products)
       dispatch(getProducts(products))
     } catch (err) {
       console.log('Error Fetching Products')
