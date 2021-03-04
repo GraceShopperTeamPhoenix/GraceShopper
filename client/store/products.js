@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import history from '../history'
 
 //action types
 
@@ -56,6 +57,7 @@ export const editProductThunk = (product, id) => {
     try {
       const updated = (await Axios.put(`/api/products/${id}`, product)).data
       dispatch(editProduct(updated))
+      history.push(`/products/${id}`)
     } catch (error) {
       console.log('error updating product', error)
     }

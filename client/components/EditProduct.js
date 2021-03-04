@@ -20,7 +20,9 @@ class EditProduct extends React.Component {
   componentDidMount() {
     console.log('edit product component mounted')
     this.props.getProducts()
-    let id = this.props.match.params.id
+    //let id = this.props.match.params.id
+    let id = this.props.product.id
+
     if (id) {
       this.props.getOneProduct(id)
     }
@@ -36,7 +38,8 @@ class EditProduct extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const id = this.props.match.params.id
+    //const id = this.props.match.params.id
+    const id = this.props.product.id
     const formInput = {...this.state}
     Object.keys(formInput).forEach(key => {
       if (formInput[key] === '' || null) delete formInput[key]
@@ -49,6 +52,8 @@ class EditProduct extends React.Component {
       quantity: '',
       category: ''
     })
+    this.props.getOneProduct(id)
+    //this.props.history.push(`/products/${id}`)
   }
 
   render() {
@@ -57,15 +62,16 @@ class EditProduct extends React.Component {
       return (
         <div>
           <div>
-            <h4>Edit Product #{this.props.match.params.id}</h4>
+            {/* <h4>Edit Product #{this.props.match.params.id}</h4> */}
+            <h4>Edit Product #{this.props.product.id}</h4>
           </div>
-          <div>
+          {/* <div>
             <p>Name: {product.name}</p>
             <p>Description: {product.description}</p>
             <p>Price: ${product.price / 100}</p>
             <p>Quantity: {product.quantity}</p>
             <p>Category: {product.category}</p>
-          </div>
+          </div> */}
           <div>
             <form id="edit-product-form" onSubmit={this.handleSubmit}>
               <label>Product Name:</label>{' '}
