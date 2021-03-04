@@ -20,7 +20,7 @@ export class AllProducts extends React.Component {
             <div key={product.id}>
               <Link to={`/products/${product.id}`}>{product.name}</Link>
               <br />
-              <img src="/succulent.jpg" width="100px" />
+              <img src={product.imageUrl} width="100px" />
               <p>$ {product.price / 100}</p>
               <button type="button">Add to Cart</button>
             </div>
