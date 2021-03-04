@@ -1,5 +1,5 @@
 /* global describe beforeEach it */
-
+/*
 const {expect} = require('chai')
 const request = require('supertest')
 const db = require('../db')
@@ -30,3 +30,4 @@ describe('User routes', () => {
     })
   }) // end describe('/api/users')
 }) // end describe('User routes')
+*/

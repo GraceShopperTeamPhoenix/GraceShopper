@@ -1,5 +1,5 @@
 /* global describe beforeEach afterEach it */
-
+/*
 import {expect} from 'chai'
 import {fetchUsers} from './users'
 import axios from 'axios'
@@ -42,3 +42,4 @@ describe('Users Store', () => {
     }) //end describe fetchUsers
   }) //end describe thunk creators
 }) // end describe users store
+*/
