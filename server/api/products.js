@@ -3,6 +3,18 @@ const {Product} = require('../db/models')
 const {User} = require('../db/models')
 module.exports = router
 
+// GET Single Product
+router.get('/:id', async (req, res, next) => {
+  try {
+    const product = await Product.findByPk(req.params.id)
+    console.log('PRODUCT =>', product.dataValues)
+    res.json(product.dataValues)
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+// GET All Products
 router.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll()
