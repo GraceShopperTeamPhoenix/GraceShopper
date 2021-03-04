@@ -31,7 +31,7 @@ export const myOrder = id => async dispatch => {
   }
 }
 
-export const newGuestOrder = () => async dispatch => {
+export const newOrder = () => async dispatch => {
   console.log('in newGuestOrder thunk')
   try {
     const res = await axios.post(`/api/order/`)

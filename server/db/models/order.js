@@ -13,7 +13,10 @@ const Order = db.define('order', {
   },
   paymentMethod: Sequelize.DataTypes.ENUM({
     values: ['visa', 'master', 'paypal']
-  })
+  }),
+  sessionId: {
+    type: Sequelize.INTEGER
+  }
 })
 
 module.exports = Order
