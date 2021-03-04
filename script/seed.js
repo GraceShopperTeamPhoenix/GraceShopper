@@ -73,7 +73,19 @@ const name2 = [
   'tuberosa',
   'amabilis'
 ]
-
+const image = [
+  '1.jpg',
+  '2.jpg',
+  '3.jpg',
+  '4.jpg',
+  '5.jpg',
+  '6.jpg',
+  '7.jpg',
+  '8.jpg',
+  '9.jpg',
+  '10.jpg',
+  '11.jpg'
+]
 for (let i = 0; i <= 110; i++) {
   let Product = {
     name:
@@ -81,7 +93,7 @@ for (let i = 0; i <= 110; i++) {
       ' ' +
       name2[Math.floor(Math.random() * 11)],
     description: faker.lorem.text(),
-    imageUrl: '/succulent.jpg',
+    imageUrl: image[Math.floor(Math.random() * 11)],
     price: 123,
     quantity: Math.ceil(Math.random() * 25),
     category: 'plants'
