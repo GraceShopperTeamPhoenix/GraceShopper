@@ -1,4 +1,4 @@
-const {green, red} = require('chalk')
+// const {green, red} = require('chalk')
 const faker = require('faker')
 
 const db = require('../server/db')
@@ -140,10 +140,10 @@ const seed = async () => {
     await Product.bulkCreate(products)
     await Order.bulkCreate(orders)
     await Order_Product.bulkCreate(order_products)
-    console.log(green('Seeding success!'))
+    console.log('Seeding success!')
     db.close()
   } catch (err) {
-    console.log(red(err))
+    console.log(err)
     db.close()
   }
 }
@@ -153,11 +153,11 @@ module.exports = seed
 if (require.main === module) {
   seed()
     .then(() => {
-      console.log(green('Seeding success!'))
+      console.log('Seeding success!')
       db.close()
     })
     .catch(err => {
-      console.error(red('Oh noes! Something went wrong!'))
+      console.error('Oh noes! Something went wrong!')
       console.error(err)
       db.close()
     })
