@@ -7,7 +7,7 @@ import {createUser} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <div>
-    <h1>Plants</h1>
+    <h1>Plant Hopper</h1>
     <nav id="navBar">
       {isLoggedIn ? (
         isAdmin ? (
