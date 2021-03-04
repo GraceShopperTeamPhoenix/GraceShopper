@@ -17,9 +17,9 @@ export class SingleProduct extends React.Component {
     return (
       <div>
         <h1>{product.name}</h1>
-        <img src="/succulent.jpg" width="200px" />
+        <img src={`/${product.imageUrl}`} width="200px" />
         <p>{product.description}</p>
-        <p>{product.price}$</p>
+        <p>$ {product.price / 100}</p>
         <p>{product.quantity} available</p>
         <button type="button">Add To Cart</button>
       </div>

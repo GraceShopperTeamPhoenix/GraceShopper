@@ -24,9 +24,9 @@ const Product = db.define('product', {
     }
   },
   price: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.INTEGER,
     validation: {
-      min: 0.01
+      min: 0
     }
   },
   quantity: {
@@ -37,6 +37,7 @@ const Product = db.define('product', {
   },
   category: {
     type: Sequelize.STRING
+    //type:Sequelize.ARRAY lets us create a drop down to sort or .ENUM
   }
 })
 module.exports = Product

@@ -9,7 +9,6 @@ class AllUsers extends React.Component {
   }
 
   render() {
-    console.log('All Users Component')
     let users = this.props.users
     return (
       <div className="users-container">
