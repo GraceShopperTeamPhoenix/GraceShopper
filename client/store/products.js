@@ -4,6 +4,7 @@ import Axios from 'axios'
 
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const CREATE_PRODUCT = 'CREATE_PRODUCT'
+const EDIT_PRODUCT = 'EDIT_PRODUCT'
 
 //ACTION CREATOR
 
@@ -15,6 +16,13 @@ export const getProducts = products => ({
 export const createProduct = product => {
   return {
     type: CREATE_PRODUCT,
+    product
+  }
+}
+
+export const editProduct = product => {
+  return {
+    type: EDIT_PRODUCT,
     product
   }
 }
@@ -43,6 +51,17 @@ export const createProductThunk = product => {
   }
 }
 
+export const editProductThunk = (product, id) => {
+  return async dispatch => {
+    try {
+      const updated = (await Axios.put(`/api/products/${id}`, product)).data
+      dispatch(editProduct(updated))
+    } catch (error) {
+      console.log('error updating product', error)
+    }
+  }
+}
+
 //reducer
 
 const initialState = {
@@ -54,6 +73,8 @@ export default function(state = initialState, action) {
     case GET_PRODUCTS:
       return {all: action.products}
     case CREATE_PRODUCT:
+      return {...state, all: [...state.all, action.product]}
+    case EDIT_PRODUCT:
       return {...state, all: [...state.all, action.product]}
     default:
       return state

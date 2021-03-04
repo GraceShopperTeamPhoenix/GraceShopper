@@ -11,6 +11,7 @@ import {
   AllProducts,
   SingleProduct,
   AddProduct,
+  EditProduct,
   ConfirmationPage
 } from './components'
 import {me} from './store'
@@ -47,6 +48,7 @@ class Routes extends Component {
                 {/* Routes placed here are only available after logging in */}
                 <Route path="/users" component={AllUsers} />
                 <Route path="/addproduct" component={AddProduct} />
+                <Route path="/editproduct/:id" component={EditProduct} />
               </Switch>
             )}
           </Switch>

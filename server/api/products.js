@@ -42,7 +42,7 @@ router.put('/:id', authorize, async (req, res, next) => {
 })
 
 //DELETE route ('/api/products/id') for DELETING a new item - admins only!
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', authorize, async (req, res, next) => {
   try {
     const itemToDelete = await Product.findByPk(req.params.id)
     await itemToDelete.destroy()
