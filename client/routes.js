@@ -10,7 +10,7 @@ import {
   Cart,
   AllProducts,
   SingleProduct,
-  AddProduct
+  AddProduct,
   ConfirmationPage
 } from './components'
 import {me} from './store'
