@@ -34,7 +34,7 @@ export class SingleProduct extends React.Component {
           <button type="button">Add To Cart</button>
         </div>
         <div>
-          {true && (
+          {this.props.isAdmin && (
             <EditProduct product={product} history={this.props.history} />
           )}
         </div>
@@ -45,7 +45,8 @@ export class SingleProduct extends React.Component {
 const mapState = state => {
   return {
     products: state.products || [],
-    currentProduct: state.product || {}
+    currentProduct: state.product || {},
+    isAdmin: !!state.user.isAdmin
   }
 }
 

@@ -1,5 +1,9 @@
 import React from 'react'
-import {editProductThunk, fetchProducts} from '../store/products'
+import {
+  editProductThunk,
+  fetchProducts,
+  deleteProductThunk
+} from '../store/products'
 import {fetchOneProduct} from '../store/singleProduct'
 import {connect} from 'react-redux'
 
@@ -15,6 +19,7 @@ class EditProduct extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   componentDidMount() {
@@ -38,7 +43,6 @@ class EditProduct extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    //const id = this.props.match.params.id
     const id = this.props.product.id
     const formInput = {...this.state}
     Object.keys(formInput).forEach(key => {
@@ -53,7 +57,12 @@ class EditProduct extends React.Component {
       category: ''
     })
     this.props.getOneProduct(id)
-    //this.props.history.push(`/products/${id}`)
+  }
+
+  handleDelete(e) {
+    const id = this.props.product.id
+    console.log('delete product!')
+    // this.props.deleteProduct(id)
   }
 
   render() {
@@ -62,16 +71,8 @@ class EditProduct extends React.Component {
       return (
         <div>
           <div>
-            {/* <h4>Edit Product #{this.props.match.params.id}</h4> */}
             <h4>Edit Product #{this.props.product.id}</h4>
           </div>
-          {/* <div>
-            <p>Name: {product.name}</p>
-            <p>Description: {product.description}</p>
-            <p>Price: ${product.price / 100}</p>
-            <p>Quantity: {product.quantity}</p>
-            <p>Category: {product.category}</p>
-          </div> */}
           <div>
             <form id="edit-product-form" onSubmit={this.handleSubmit}>
               <label>Product Name:</label>{' '}
@@ -112,6 +113,11 @@ class EditProduct extends React.Component {
               <button type="submit">Submit</button>
             </form>
           </div>
+          <div>
+            <button type="button" onClick={this.handleDelete}>
+              Delete Product
+            </button>
+          </div>
         </div>
       )
     } else {
@@ -131,7 +137,8 @@ const mapDispatch = dispatch => {
   return {
     editProduct: (product, id) => dispatch(editProductThunk(product, id)),
     getProducts: () => dispatch(fetchProducts()),
-    getOneProduct: id => dispatch(fetchOneProduct(id))
+    getOneProduct: id => dispatch(fetchOneProduct(id)),
+    deleteProduct: id => dispatch(deleteProductThunk(id))
   }
 }
 

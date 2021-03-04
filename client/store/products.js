@@ -6,6 +6,7 @@ import history from '../history'
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const CREATE_PRODUCT = 'CREATE_PRODUCT'
 const EDIT_PRODUCT = 'EDIT_PRODUCT'
+const DELETE_PRODUCT = 'DELETE_PRODUCT'
 
 //ACTION CREATOR
 
@@ -27,6 +28,8 @@ export const editProduct = product => {
     product
   }
 }
+
+const deleteProduct = id => ({type: DELETE_PRODUCT, deletedProduct})
 
 //thunk reducer
 
@@ -57,9 +60,21 @@ export const editProductThunk = (product, id) => {
     try {
       const updated = (await Axios.put(`/api/products/${id}`, product)).data
       dispatch(editProduct(updated))
-      history.push(`/products/${id}`)
     } catch (error) {
       console.log('error updating product', error)
+    }
+  }
+}
+
+export const deleteProductThunk = id => {
+  return async dispatch => {
+    try {
+      const deletedProduct = await Axios.delete(`/api/products/${id}`)
+      console.log(deletedProduct)
+      dispatch(deleteProduct(deletedProduct))
+      history.push(`/products/`)
+    } catch (error) {
+      console.log('error deleting product', error)
     }
   }
 }
@@ -78,6 +93,8 @@ export default function(state = initialState, action) {
       return {...state, all: [...state.all, action.product]}
     case EDIT_PRODUCT:
       return {...state, all: [...state.all, action.product]}
+    case DELETE_PRODUCT:
+      return state.filter(product => product.id !== action.deletedProduct.id)
     default:
       return state
   }
