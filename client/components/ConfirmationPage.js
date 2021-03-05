@@ -35,7 +35,7 @@ class ConfirmationPage extends React.Component {
               <div>A confirmation email has been sent to {email}</div>
               <br />
               <div>
-                <h4>Here's what you ordered:</h4>
+                <h3>Here's what you ordered:</h3>
               </div>
               <div id="cart-container">
                 <div>
