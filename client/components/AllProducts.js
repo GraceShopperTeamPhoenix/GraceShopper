@@ -15,18 +15,24 @@ export class AllProducts extends React.Component {
       return <div>No Products</div>
     } else {
       return (
-        <div>
+        <ul className="product">
           <h1>Products</h1>
           {products.map(product => (
-            <div key={product.id}>
-              <Link to={`/products/${product.id}`}>{product.name}</Link>
-              <br />
-              <img src={product.imageUrl} width="100px" />
-              <p>$ {product.price / 100}</p>
-              <button type="button">Add to Cart</button>
-            </div>
+            <li key={product.id}>
+              <div className="product">
+                <Link to={`/products/${product.id}`}>{product.name}</Link>
+                <br />
+                <img src={product.imageUrl} width="100px" />
+                <div className="product-price">
+                  <p>$ {product.price / 100}</p>
+                  <button type="button" className="button primary">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </li>
           ))}
-        </div>
+        </ul>
       )
     }
   }
