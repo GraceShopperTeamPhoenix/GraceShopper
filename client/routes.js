@@ -11,6 +11,7 @@ import {
   AllProducts,
   SingleProduct,
   AddProduct,
+  EditProduct,
   ConfirmationPage
 } from './components'
 import {me} from './store'
@@ -26,7 +27,6 @@ class Routes extends Component {
   render() {
     const {isLoggedIn} = this.props
     const {isAdmin} = this.props
-    console.log('isAdmin', isAdmin)
 
     return (
       <Switch>
@@ -47,6 +47,7 @@ class Routes extends Component {
                 {/* Routes placed here are only available after logging in */}
                 <Route path="/users" component={AllUsers} />
                 <Route path="/addproduct" component={AddProduct} />
+                <Route path="/editproduct/:id" component={EditProduct} />
               </Switch>
             )}
           </Switch>
@@ -58,13 +59,10 @@ class Routes extends Component {
   }
 }
 
-//admin login: admin@graceshopper.com // 1235
-
 /**
  * CONTAINER
  */
 const mapState = state => {
-  console.log(state)
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
