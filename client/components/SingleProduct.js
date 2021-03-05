@@ -11,8 +11,16 @@ export class SingleProduct extends React.Component {
       this.props.getOneProduct(id)
     }
   }
+
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.currentProduct.updatedAt !== prevProps.currentProduct.updatedAt
+    ) {
+      let id = this.props.currentProduct.id
+      this.props.getOneProduct(id)
+    }
+  }
   render() {
-    console.log('Single Product', this.props)
     const product = this.props.currentProduct
     if (!product) {
       return <div>No Product with this Id!</div>

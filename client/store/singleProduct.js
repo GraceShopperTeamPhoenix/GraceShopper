@@ -14,13 +14,9 @@ export const getSingleProduct = product => ({
 //thunk reducer
 
 export const fetchOneProduct = id => {
-  console.log('in single product thunk')
-  console.log('id = ', id)
   return async dispatch => {
     try {
-      console.log('about to get product')
       const {data: product} = await Axios.get(`/api/products/${id}`)
-      console.log('got single product: ', product)
       dispatch(getSingleProduct(product))
     } catch (error) {
       console.log('Error Fetching Single Product')

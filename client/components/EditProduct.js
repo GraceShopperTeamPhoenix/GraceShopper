@@ -11,7 +11,8 @@ class EditProduct extends React.Component {
       description: '',
       price: '',
       quantity: '',
-      category: ''
+      category: '',
+      justUpdated: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -21,6 +22,15 @@ class EditProduct extends React.Component {
   componentDidMount() {
     let id = this.props.product.id
     if (id) {
+      this.props.getOneProduct(id)
+    }
+  }
+  componentDidUpdate() {
+    let id = this.props.product.id
+    if (this.state.justUpdated) {
+      this.setState({
+        justUpdated: false
+      })
       this.props.getOneProduct(id)
     }
   }
@@ -37,6 +47,7 @@ class EditProduct extends React.Component {
     const formInput = {...this.state}
     Object.keys(formInput).forEach(key => {
       if (formInput[key] === '' || null) delete formInput[key]
+      delete formInput.justUpdated
     })
     this.props.editProduct(formInput, id)
     this.setState({
@@ -44,9 +55,9 @@ class EditProduct extends React.Component {
       description: '',
       price: '',
       quantity: '',
-      category: ''
+      category: '',
+      justUpdated: true
     })
-    this.props.getOneProduct(id)
   }
 
   handleDelete() {
