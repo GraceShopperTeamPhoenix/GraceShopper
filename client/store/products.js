@@ -1,14 +1,14 @@
 import Axios from 'axios'
 import history from '../history'
 
-//action types
+//ACTION TYPES
 
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const CREATE_PRODUCT = 'CREATE_PRODUCT'
 const EDIT_PRODUCT = 'EDIT_PRODUCT'
 const DELETE_PRODUCT = 'DELETE_PRODUCT'
 
-//ACTION CREATOR
+//ACTION CREATORS
 
 export const getProducts = products => ({
   type: GET_PRODUCTS,
@@ -29,9 +29,14 @@ export const editProduct = product => {
   }
 }
 
-const deleteProduct = id => ({type: DELETE_PRODUCT, deletedProduct})
+export const deleteProduct = deletedProduct => {
+  return {
+    type: DELETE_PRODUCT,
+    deletedProduct
+  }
+}
 
-//thunk reducer
+//THUNK REDUCERS
 
 export const fetchProducts = () => {
   return async dispatch => {
@@ -70,9 +75,8 @@ export const deleteProductThunk = id => {
   return async dispatch => {
     try {
       const deletedProduct = await Axios.delete(`/api/products/${id}`)
-      console.log(deletedProduct)
       dispatch(deleteProduct(deletedProduct))
-      history.push(`/products/`)
+      history.push(`/products`)
     } catch (error) {
       console.log('error deleting product', error)
     }
@@ -94,7 +98,12 @@ export default function(state = initialState, action) {
     case EDIT_PRODUCT:
       return {...state, all: [...state.all, action.product]}
     case DELETE_PRODUCT:
-      return state.filter(product => product.id !== action.deletedProduct.id)
+      return {
+        ...state,
+        all: state.all.filter(
+          product => product.id !== action.deletedProduct.id
+        )
+      }
     default:
       return state
   }

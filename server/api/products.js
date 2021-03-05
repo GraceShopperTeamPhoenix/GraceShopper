@@ -58,6 +58,7 @@ router.delete('/:id', async (req, res, next) => {
   try {
     const itemToDelete = await Product.findByPk(req.params.id)
     await itemToDelete.destroy()
+    console.log(itemToDelete)
     res.status(200).send(itemToDelete)
   } catch (error) {
     next(error)
