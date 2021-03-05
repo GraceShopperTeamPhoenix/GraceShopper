@@ -58,7 +58,7 @@ export class Cart extends React.Component {
     const user = this.props.user
     const order = this.props.order
 
-    if (user.id && order.id && order.products) {
+    if (order.products) {
       if (order.products.length > 0) {
         let cartTotal = 0
         return (
