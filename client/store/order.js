@@ -45,7 +45,7 @@ export const newOrder = () => async dispatch => {
 export const guestOrder = () => async dispatch => {
   console.log('in guestOrder thunk')
   try {
-    const res = await axios.get(`/api/order/guest/`)
+    const res = await axios.get(`/api/order/`)
     console.log('got guest order from axios: ', res.data)
     dispatch(getGuestOrder(res.data))
   } catch (err) {

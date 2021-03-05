@@ -14,7 +14,6 @@ export class Cart extends React.Component {
       this.props.getMyOrder(id)
     } else if (!id) {
       console.log('in the else if 3')
-      // if no user is associated with state, get guest cart
       this.props.getGuestOrder()
     }
   }
@@ -58,7 +57,7 @@ export class Cart extends React.Component {
     const user = this.props.user
     const order = this.props.order
 
-    if (user.id && order.id && order.products) {
+    if ((user.id && order.id && order.products) || order.products) {
       if (order.products.length > 0) {
         let cartTotal = 0
         return (
@@ -122,6 +121,7 @@ export class Cart extends React.Component {
  * CONTAINER
  */
 const mapState = state => {
+  console.log('state in cart component', state)
   return {
     order: state.order,
     user: state.user
