@@ -122,7 +122,7 @@ let Order_Product_build = []
 for (let i = 1; i <= 50; i++) {
   let Order_Product = {
     orderId: Math.ceil(Math.random() * 10),
-    productId: Math.ceil(Math.random() * 100),
+    productId: i,
     quantity: Math.ceil(Math.random() * 5),
     price: 1000
   }
