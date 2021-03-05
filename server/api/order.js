@@ -5,61 +5,15 @@ const {Order, Order_Product, Product, User} = require('../db/models')
 
 module.exports = router
 
-// //POST route to create the cart/order ('api/order')
-// router.post('/', async (req, res, next) => {
-//   try {
-//     let user
-//     let newCart
-//     if (req.session.passport) {
-//       user = await User.findOne({where: {id: req.session.passport.user}})
-//     }
-//     if (user) {
-//       //if there is a userId, create a new Order with userId & status pending
-//       newCart = await Order.create({
-//         status: 'pending',
-//         id: user.id,
-//       })
-//     } else {
-//       //if there is no user, create a new Order with sessionId & status pending
-//       newCart = await Order.create({
-//         status: 'pending',
-//         id: req.session.guestOrderId,
-//       })
-//     }
-//     res.json(newCart)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
-//GET route ('api/order/guest') to display guest cart
-router.get('/guest', async (req, res, next) => {
-  // console.log('req.session', req.session)
-
-  try {
-    const id = req.session.guestOrderId
-    if (id) {
-      const cart = await Order.findOne({
-        include: [
-          {
-            model: Product
-          }
-        ],
-        where: {
-          id: id,
-          status: 'pending'
-        }
-      })
-      res.json(cart)
-      // } else {
-      //   const newCart = await Order.create({
-      //     status: 'pending',
-      //     id: req.session.guestOrderId,
-      //   })
-      //   res.json(newCart)
+router.get('/', (req, res, next) => {
+  if (!req.session.cart) {
+    req.session.cart = {
+      products: [],
+      status: 'pending'
     }
-  } catch (err) {
-    next(err)
+    res.json(req.session.cart)
+  } else {
+    res.json(req.session.cart)
   }
 })
 
