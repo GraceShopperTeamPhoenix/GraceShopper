@@ -31,30 +31,6 @@ export class Cart extends React.Component {
   }
 
   render() {
-    const styles = {
-      cartproduct: {
-        display: 'flex',
-        alignItems: 'center',
-        margin: '10px',
-        padding: '5px',
-        border: '1px gray solid'
-        // background: 'lightgray',
-      },
-      cartcontainer: {
-        width: '75%',
-        display: 'flex',
-        justifyContent: 'center'
-      },
-      totals: {
-        width: '25%'
-      },
-      total: {
-        // border: '1px gray solid',
-        background: 'gainsboro',
-        margin: '10px',
-        padding: '5px'
-      }
-    }
     const user = this.props.user
     const order = this.props.order
 
@@ -64,18 +40,14 @@ export class Cart extends React.Component {
         return (
           <div>
             <h1>My Cart</h1>
-            <div id="cart-container" style={styles.cartcontainer}>
+            <div className="flexbox-container">
               <div>
                 {order.products.map(item => {
                   let itemTotal = item.price / 100 * item.quantity
                   cartTotal += itemTotal
                   console.log('cart total: ', cartTotal)
                   return (
-                    <div
-                      key={item.id}
-                      id="cart-product"
-                      style={styles.cartproduct}
-                    >
+                    <div key={item.id} className="flex-item">
                       <div>
                         <img src={item.imageUrl} width="75px" />
                       </div>
@@ -100,8 +72,8 @@ export class Cart extends React.Component {
                   )
                 })}
               </div>
-              <div style={styles.totals}>
-                <div style={styles.total}>
+              <div>
+                <div>
                   <h1>Total: ${cartTotal}</h1>
                   <button>Purchase</button>
                 </div>

@@ -7,11 +7,12 @@ import {createUser} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <div>
-    <h1>Plant Hopper</h1>
-    <nav id="navBar">
+    <img src="/header3.png" className="siteheader" />
+    <nav className="navbar">
+      <img src="/icon2.jpg" className="logo" />
       {isLoggedIn ? (
         isAdmin ? (
-          <div>
+          <div i wanna do liker>
             {/* The navbar will show these links after you log in as an Amin*/}
             <Link to="/home">Home</Link>
             <Link to="/users">Users</Link>
