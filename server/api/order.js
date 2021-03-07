@@ -78,6 +78,48 @@ router.post('/:productId', async (req, res, next) => {
 })
 
 //POST route to add items to the cart for a user
+router.post('/:userId/:productId', async (req, res, next) => {
+  const cart = await Order.findOrCreate({
+    include: [
+      {
+        model: Product
+      }
+    ],
+    where: {
+      userId: req.params.userId,
+      status: 'pending'
+    },
+    defaults: {
+      userId: req.params.userId,
+      status: 'pending'
+    }
+  })
+
+  const products = cart[0].products
+  let item = products.find(
+    product => product.id === Number(req.params.productId)
+  )
+  if (item) {
+    item.order_product.quantity++
+    res.json(cart[0])
+  } else {
+    const product = await Product.findOne({where: {id: req.params.productId}})
+    await cart[0].addProduct(product, {
+      through: {quantity: 1, price: product.price}
+    })
+    const updatedCart = await Order.findOne({
+      include: [
+        {
+          model: Product
+        }
+      ],
+      where: {
+        id: cart[0].id
+      }
+    })
+    res.json(updatedCart)
+  }
+})
 
 //DELETE route to remove items
 
