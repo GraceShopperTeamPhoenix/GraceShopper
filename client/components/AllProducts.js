@@ -15,14 +15,13 @@ export class AllProducts extends React.Component {
       return <div>No Products</div>
     } else {
       return (
-        <ul className="product">
-          <h1>Products</h1>
+        <ul className="products">
           {products.map(product => (
             <li key={product.id}>
               <div className="product">
                 <Link to={`/products/${product.id}`}>{product.name}</Link>
                 <br />
-                <img src={product.imageUrl} width="100px" />
+                <img src={product.imageUrl} alt={product.name} />
                 <div className="product-price">
                   <p>$ {product.price / 100}</p>
                   <button type="button" className="button primary">

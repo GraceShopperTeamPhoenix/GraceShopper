@@ -6,8 +6,15 @@ import Routes from './routes'
 const App = () => {
   return (
     <div>
-      <Navbar />
-      <Routes />
+      <header>
+        <Navbar />
+      </header>
+
+      <main>
+        <Routes />
+      </main>
+
+      <footer> Our Team is the best </footer>
     </div>
   )
 }
