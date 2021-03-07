@@ -17,15 +17,17 @@ export class AllProducts extends React.Component {
       return (
         <div>
           <h1>Products</h1>
-          {products.map(product => (
-            <div key={product.id}>
-              <Link to={`/products/${product.id}`}>{product.name}</Link>
-              <br />
-              <img src={product.imageUrl} width="100px" />
-              <p>$ {product.price / 100}</p>
-              <button type="button">Add to Cart</button>
-            </div>
-          ))}
+          <div className="flexbox-container">
+            {products.map(product => (
+              <div key={product.id} className="flex-item">
+                <Link to={`/products/${product.id}`}>{product.name}</Link>
+                <br />
+                <img src={product.imageUrl} width="100px" />
+                <p>$ {product.price / 100}</p>
+                <button type="button">Add to Cart</button>
+              </div>
+            ))}
+          </div>
         </div>
       )
     }
