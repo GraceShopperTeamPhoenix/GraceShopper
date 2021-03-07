@@ -45,7 +45,6 @@ export class Cart extends React.Component {
                 {order.products.map(item => {
                   let itemTotal = item.price / 100 * item.quantity
                   cartTotal += itemTotal
-                  console.log('cart total: ', cartTotal)
                   return (
                     <div key={item.id} className="flex-item">
                       <div>

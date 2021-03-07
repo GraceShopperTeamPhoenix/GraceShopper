@@ -5,7 +5,7 @@ import axios from 'axios'
  */
 const GET_ORDER = 'GET_ORDER'
 const GET_GUEST_ORDER = 'GET_GUEST_ORDER'
-const CREATED_GUEST_ORDER = 'CREATED_GUEST_ORDER'
+const ADD_GUEST_PRODUCT = 'ADD_GUEST_PRODUCT'
 
 /**
  * INITIAL STATE
@@ -17,7 +17,7 @@ const defaultOrder = {}
  */
 const getOrder = order => ({type: GET_ORDER, order})
 const getGuestOrder = order => ({type: GET_GUEST_ORDER, order})
-const createdGuestOrder = order => ({type: CREATED_GUEST_ORDER, order})
+const addGuestProduct = order => ({type: ADD_GUEST_PRODUCT, order})
 
 /**
  * THUNK CREATORS
@@ -31,25 +31,21 @@ export const myOrder = id => async dispatch => {
   }
 }
 
-export const newOrder = () => async dispatch => {
-  console.log('in newGuestOrder thunk')
+export const guestOrder = () => async dispatch => {
   try {
-    const res = await axios.post(`/api/order/`)
-    console.log('new guest order from axios, id is: ', res.data.id)
-    dispatch(createdGuestOrder(res.data))
+    const res = await axios.get(`/api/order/`)
+    dispatch(getGuestOrder(res.data))
   } catch (err) {
     console.error(err)
   }
 }
 
-export const guestOrder = () => async dispatch => {
-  console.log('in guestOrder thunk')
+export const guestProduct = productId => async dispatch => {
   try {
-    const res = await axios.get(`/api/order/`)
-    console.log('got guest order from axios: ', res.data)
-    dispatch(getGuestOrder(res.data))
-  } catch (err) {
-    console.error(err)
+    const {data} = await axios.post(`/api/order/${productId}`)
+    dispatch(addGuestProduct(data))
+  } catch (error) {
+    console.log('Error adding product', error)
   }
 }
 
@@ -62,7 +58,7 @@ export default function(state = defaultOrder, action) {
       return action.order
     case GET_GUEST_ORDER:
       return action.order
-    case CREATED_GUEST_ORDER:
+    case ADD_GUEST_PRODUCT:
       return action.order
     default:
       return state

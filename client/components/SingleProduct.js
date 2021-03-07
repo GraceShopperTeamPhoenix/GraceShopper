@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/products'
 import {fetchOneProduct} from '../store/singleProduct'
-import {EditProduct} from './index'
+import {EditProduct, AddToCart} from './index'
 
 export class SingleProduct extends React.Component {
   componentDidMount() {
@@ -33,7 +33,7 @@ export class SingleProduct extends React.Component {
           <p>{product.description}</p>
           <p>$ {product.price / 100}</p>
           <p>{product.quantity} available</p>
-          <button type="button">Add To Cart</button>
+          <AddToCart productId={product.id} />
         </div>
         <div>
           {this.props.isAdmin && (
