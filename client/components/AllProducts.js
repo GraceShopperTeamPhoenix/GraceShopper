@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/products'
 import {Link} from 'react-router-dom'
-import {AddProduct} from './index'
+import {AddToCart} from './index'
 
 export class AllProducts extends React.Component {
   componentDidMount() {
@@ -24,7 +24,7 @@ export class AllProducts extends React.Component {
                 <br />
                 <img src={product.imageUrl} width="100px" />
                 <p>$ {product.price / 100}</p>
-                <button type="button">Add to Cart</button>
+                <AddToCart productId={product.id} />
               </div>
             ))}
           </div>
