@@ -1,4 +1,4 @@
-import {check} from 'prettier'
+// import {check} from 'prettier'
 import React from 'react'
 import {connect} from 'react-redux'
 import {
@@ -9,7 +9,7 @@ import {
   userProductRemove,
   guestProductRemove
 } from '../store'
-import CheckoutGuest from './index'
+import CheckoutGuest from './CheckoutGuest'
 
 export class Cart extends React.Component {
   constructor() {

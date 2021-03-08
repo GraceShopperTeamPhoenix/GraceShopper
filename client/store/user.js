@@ -18,7 +18,7 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
-export const checkoutGuestUser = (user = {type: CHECKOUT_GUEST_USER, user})
+export const checkoutGuestUser = user => ({type: CHECKOUT_GUEST_USER, user})
 
 /**
  * THUNK CREATORS
