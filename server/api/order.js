@@ -57,8 +57,6 @@ router.post('/:productId', async (req, res, next) => {
     let item = products.find(
       product => product.id === Number(req.params.productId)
     )
-    console.log('req.params.productId', req.params.productId)
-    console.log('item', item)
     if (item) {
       item.quantity++
     } else {
@@ -94,14 +92,26 @@ router.post('/:userId/:productId', async (req, res, next) => {
       status: 'pending'
     }
   })
-
   const products = cart[0].products
   let item = products.find(
     product => product.id === Number(req.params.productId)
   )
+  console.log('item =>', item)
   if (item) {
-    item.order_product.quantity++
-    res.json(cart[0])
+    await cart[0].addProduct(item, {
+      through: {quantity: item.order_product.quantity++, price: item.price}
+    })
+    const updatedCart = await Order.findOne({
+      include: [
+        {
+          model: Product
+        }
+      ],
+      where: {
+        id: cart[0].id
+      }
+    })
+    res.json(updatedCart)
   } else {
     const product = await Product.findOne({where: {id: req.params.productId}})
     await cart[0].addProduct(product, {

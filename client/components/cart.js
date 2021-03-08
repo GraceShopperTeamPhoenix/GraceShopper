@@ -4,13 +4,19 @@ import {myOrder, guestOrder} from '../store'
 
 export class Cart extends React.Component {
   componentDidMount() {
+    console.log('CART COMPONENT MOUNTED')
     const id = this.props.user.id
     const order = this.props.order
     if (id && !order.id) {
+      console.log('USER ID YES - ORDER ID NO')
       this.props.getMyOrder(id)
     } else if (id && order.userId !== id) {
+      console.log(
+        'USER ID YES - USER ON CURRENT ORDER DOES NOT MATCH CURRENT USER'
+      )
       this.props.getMyOrder(id)
     } else if (!id) {
+      console.log('NO USER ID')
       // if no user is associated with state, get guest cart
       this.props.getGuestOrder()
     }
@@ -23,6 +29,7 @@ export class Cart extends React.Component {
     const id = this.props.user.id
     const order = this.props.order
     if (id && !order.id) {
+      console.log('USER ID YES - ORDER ID NO')
       this.props.getMyOrder(id)
     }
   }

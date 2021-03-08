@@ -28,6 +28,7 @@ const addUserProduct = order => ({type: ADD_USER_PRODUCT, order})
 // Gets user cart
 export const myOrder = id => async dispatch => {
   try {
+    console.log('IN GETMYORDER THUNK')
     const res = await axios.get(`/api/order/${id}`)
     dispatch(getOrder(res.data || defaultOrder))
   } catch (err) {
@@ -57,10 +58,8 @@ export const guestProduct = productId => async dispatch => {
 
 // Adds product to user cart
 export const userProduct = (productId, userId) => async dispatch => {
-  console.log('in userProduct thunk')
   try {
     const {data} = await axios.post(`/api/order/${userId}/${productId}`)
-    console.log('thunk returned: ', data)
     dispatch(addUserProduct(data))
   } catch (error) {
     console.error(error)
