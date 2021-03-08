@@ -1,18 +1,15 @@
 .navbar {
   width: 100%;
-  height: 15vh;
   margin: auto;
   display: flex;
-  align-items: center;
+  justify-content: space-around;
 }
 .logo {
-  width: 160px;
   cursor: pointer;
   mix-blend-mode: multiply;
 }
 .siteheader {
   mix-blend-mode: multiply;
-  text-align: center;
   height: 30vh;
   float: right;
   margin-bottom: 0;
@@ -22,17 +19,44 @@
   width: 100%;
   margin: 0;
 }
+.pageHeader {
+  mix-blend-mode: multiply;
+  text-align: center;
+  height: 15vh;
+}
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-content: center;
+}
+/* .majorIcon {
+  mix-blend-mode: multiply;
+  width: 3;
+  height: 40vh;
+
+} */
+.minor-Icon {
+  /* flex: 1 0 30%; */
+  justify-content: center;
+  margin: auto;
+  align-content: center;
+}
+.Icon {
+  mix-blend-mode: multiply;
+  width: 200px;
+}
 body {
   font-family: alegreya;
   color: black;
   margin: 0px;
   height: 100%;
   width: 100%;
-  background-image: url(/background2.jpg);
+  background-color: ivory;
   background-position: center;
   background-size: cover;
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: 0;
+  padding-right: 0;
   box-sizing: border-box;
   position: relative;
 }
@@ -71,8 +95,17 @@ form div {
   align-content: center;
 }
 .flex-item {
-  width: 200;
   flex: 1 0 21%;
+  border: rgb(116, 140, 120);
+  margin: 5px;
+  border-style: groove;
+  text-align: center;
+  padding: 5px;
+  mix-blend-mode: multiply;
+}
+#prodImg {
+  width: 100px;
+  height: 100px;
 }
 button {
   display: inline-block;
@@ -84,4 +117,31 @@ button {
   cursor: pointer;
   border-radius: 4px;
   background-color: rgb(183, 201, 159);
+}
+button:hover {
+  background-color: rgb(116, 140, 120);
+}
+
+#logo-main {
+  display: block;
+  margin: 20px auto;
+  mix-blend-mode: multiply;
+}
+
+#navbar-primary.navbar-default {
+  background: rgb(183, 201, 159, 0.3);
+  border: none;
+}
+.navbar-nav {
+  width: 100%;
+  text-align: center;
+}
+
+a {
+  color: rgb(84, 84, 84);
+  opacity: 1;
+  margin: 0;
+}
+a:hover {
+  background-color: rgb(116, 140, 120, 0.5);
 }

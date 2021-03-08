@@ -89,7 +89,9 @@ export class Cart extends React.Component {
         let cartTotal = 0
         return (
           <div>
-            <h1>My Cart</h1>
+            <div className="pageHeader">
+              <img src="/cartHeader.png" className="pageHeader" />
+            </div>
             <div className="flexbox-container">
               <div>
                 {order.products.map(item => {
@@ -103,7 +105,7 @@ export class Cart extends React.Component {
                   return (
                     <div key={item.id} className="flex-item">
                       <div>
-                        <img src={item.imageUrl} width="75px" />
+                        <img src={item.imageUrl} id="prodImg" />
                       </div>
 
                       <div>

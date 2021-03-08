@@ -3,48 +3,64 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
-import {createUser} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <div>
-    <img src="/header3.png" className="siteheader" />
-    <nav className="navbar">
-      <img src="/icon2.jpg" className="logo" />
-      {isLoggedIn ? (
-        isAdmin ? (
-          <div i wanna do liker>
-            {/* The navbar will show these links after you log in as an Amin*/}
-            <Link to="/home">Home</Link>
-            <Link to="/users">Users</Link>
-            <Link to="/products">Products</Link>
-            <Link to="/cart">Cart</Link>
-            <Link to="/addproduct">Add Product</Link>
-            <a href="#" onClick={handleClick}>
-              Logout
-            </a>
-          </div>
-        ) : (
-          <div>
-            {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
-            <Link to="/products">Products</Link>
-            <Link to="/cart">Cart</Link>
-            <a href="#" onClick={handleClick}>
-              Logout
-            </a>
-          </div>
-        )
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/products">Products</Link>
-          <Link to="/cart">Cart</Link>
+    <header role="banner">
+      <img
+        id="logo-main"
+        src="/header3.png"
+        width="200"
+        alt="Logo Thing main logo"
+      />
+      <nav
+        id="navbar-primary"
+        className="navbar navbar-default"
+        role="navigation"
+      >
+        <div className="container-fluid">
+          <div className="navbar-header" />
+          {isLoggedIn ? (
+            isAdmin ? (
+              <div i wanna do liker>
+                {/* The navbar will show these links after you log in as an Amin*/}
+                <Link to="/home" id="link">Home</Link>
+                <Link to="/users">Users</Link>
+                <Link to="/products">Products</Link>
+                <Link to="/cart">Cart</Link>
+                <Link to="/addproduct">Add Product</Link>
+                <Link to="/user">My Page</Link>
+                <a href="#" onClick={handleClick}>
+                  Logout
+                </a>
+              </div>
+            ) : (
+              <div>
+                {/* The navbar will show these links after you log in */}
+                <Link to="/home">Home</Link>
+                <Link to="/products">Products</Link>
+                <Link to="/cart">Cart</Link>
+                <Link to="/user">My Page</Link>
+                <a href="#" onClick={handleClick}>
+                  Logout
+                </a>
+              </div>
+            )
+          ) : (
+            <div>
+              {/* The navbar will show these links before you log in */}
+              <Link to="/home" id="link">
+                Home
+              </Link>
+              <Link to="/signup">Sign Up</Link>
+              <Link to="/products">Products</Link>
+              <Link to="/cart">Cart</Link>
+              <Link to="/login">Login</Link>
+            </div>
+          )}
         </div>
-      )}
-    </nav>
-    <hr />
+      </nav>
+    </header>
   </div>
 )
 
