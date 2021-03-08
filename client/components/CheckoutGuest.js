@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import PropTypes from 'prop-types'
 import {checkoutGuestUser} from '../store/user'
 
 /**
@@ -11,16 +10,17 @@ class CheckoutGuest extends React.Component {
     super(props)
     this.state = {
       firstName: '',
-      lasttName: '',
+      lastName: '',
       address: '',
-      email: ''
+      email: '',
+      guest: true
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
   handleSubmit() {
-    console.log('guest checkout submitting.....')
+    this.props.checkoutGuestUser(this.state)
     this.props.history.push('/confirmation')
   }
 
@@ -28,6 +28,7 @@ class CheckoutGuest extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     })
+    console.log(this.state)
   }
 
   render() {
@@ -38,25 +39,41 @@ class CheckoutGuest extends React.Component {
             <label htmlFor="firstName">
               <small>First Name</small>
             </label>
-            <input name="firstName" type="text" />
+            <input
+              name="firstName"
+              value={this.state.firstName}
+              onChange={this.handleChange}
+            />
           </div>
           <div>
             <label htmlFor="lastName">
               <small>Last Name</small>
             </label>
-            <input name="lastName" type="text" />
+            <input
+              name="lastName"
+              value={this.state.lastName}
+              onChange={this.handleChange}
+            />
           </div>
           <div>
             <label htmlFor="address">
               <small>Address</small>
             </label>
-            <input name="address" type="text" />
+            <input
+              name="address"
+              value={this.state.address}
+              onChange={this.handleChange}
+            />
           </div>
           <div>
             <label htmlFor="email">
               <small>Email</small>
             </label>
-            <input name="email" type="text" />
+            <input
+              name="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
           </div>
 
           <div>

@@ -9,6 +9,7 @@ const ADD_GUEST_PRODUCT = 'ADD_GUEST_PRODUCT'
 const ADD_USER_PRODUCT = 'ADD_USER_PRODUCT'
 const REMOVE_GUEST_PRODUCT = 'REMOVE_GUEST_PRODUCT'
 const REMOVE_USER_PRODUCT = 'REMOVE_USER_PRODUCT'
+const CLEAR_GUEST_CART = 'CLEAR_CART'
 
 /**
  * INITIAL STATE
@@ -24,6 +25,7 @@ const addGuestProduct = order => ({type: ADD_GUEST_PRODUCT, order})
 const addUserProduct = order => ({type: ADD_USER_PRODUCT, order})
 const removeGuestProduct = order => ({type: REMOVE_GUEST_PRODUCT, order})
 const removeUserProduct = order => ({type: REMOVE_USER_PRODUCT, order})
+const clearGuestCart = () => ({type: CLEAR_GUEST_CART})
 
 /**
  * THUNK CREATORS
@@ -32,7 +34,6 @@ const removeUserProduct = order => ({type: REMOVE_USER_PRODUCT, order})
 // Gets user cart
 export const myOrder = id => async dispatch => {
   try {
-    console.log('IN GETMYORDER THUNK')
     const res = await axios.get(`/api/order/${id}`)
     dispatch(getOrder(res.data || defaultOrder))
   } catch (err) {
@@ -90,6 +91,16 @@ export const userProductRemove = (productId, userId) => async dispatch => {
   }
 }
 
+// Clears guest cart
+export const emptyGuestCart = () => async dispatch => {
+  try {
+    await axios.delete('/api/order/')
+    dispatch(clearGuestCart())
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -107,6 +118,8 @@ export default function(state = defaultOrder, action) {
       return action.order
     case REMOVE_USER_PRODUCT:
       return action.order
+    case CLEAR_GUEST_CART:
+      return defaultOrder
     default:
       return state
   }
