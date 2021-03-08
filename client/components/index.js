@@ -14,8 +14,5 @@ export {default as AllUsers} from './AllUsers'
 export {default as SingleProduct} from './SingleProduct'
 export {default as AddProduct} from './AddProduct'
 export {default as ConfirmationPage} from './ConfirmationPage'
-<<<<<<< HEAD
 export {default as Home} from './Home'
-=======
 export {default as AddToCart} from './AddToCart'
->>>>>>> master

@@ -1,3 +1,4 @@
+// import {check} from 'prettier'
 import React from 'react'
 import {connect} from 'react-redux'
 import {
@@ -10,12 +11,18 @@ import {
   userProductDelete,
   guestProductDelete
 } from '../store'
+import CheckoutGuest from './CheckoutGuest'
 
 export class Cart extends React.Component {
   constructor() {
     super()
+    this.state = {
+      guestCheckout: false
+    }
+
     this.addClickHandler = this.addClickHandler.bind(this)
     this.removeClickHandler = this.removeClickHandler.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.deleteClickHandler = this.deleteClickHandler.bind(this)
   }
 
@@ -53,6 +60,15 @@ export class Cart extends React.Component {
       this.props.userProductRemove(productId, this.props.user.id)
     } else {
       this.props.guestProductRemove(productId)
+    }
+  }
+
+  handleSubmit() {
+    if (this.props.user.id) {
+      //add thunk to update cart status 'pending' switch 'received'
+      this.props.history.push('/confirmation')
+    } else {
+      this.setState({guestCheckout: true})
     }
   }
 
@@ -97,7 +113,8 @@ export class Cart extends React.Component {
                       </div>
 
                       <div>
-                        <p>Item Total: ${itemTotal}</p>
+                        <p>Price: ${item.price / 100}</p>
+                        <p>Item Total: ${itemTotal.toFixed(2)}</p>
                         <p>
                           <button
                             type="button"
@@ -130,7 +147,14 @@ export class Cart extends React.Component {
               <div>
                 <div>
                   <h1>Total: ${cartTotal.toFixed(2)}</h1>
-                  <button>Purchase</button>
+                  <button type="submit" onClick={this.handleSubmit}>
+                    Purchase
+                  </button>
+                </div>
+                <div>
+                  {this.state.guestCheckout && (
+                    <CheckoutGuest history={this.props.history} />
+                  )}
                 </div>
               </div>
             </div>

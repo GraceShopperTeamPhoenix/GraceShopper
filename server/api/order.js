@@ -2,8 +2,26 @@ const router = require('express').Router()
 // const {Cart} = require('../db/models')
 // const {CartItem} = require('../db/models')
 const {Order, Order_Product, Product, User} = require('../db/models')
-
 module.exports = router
+
+//authorization function for user
+async function authorize(req, res, next) {
+  try {
+    let user
+    if (req.session.passport) {
+      user = await User.findOne({where: {id: req.session.passport.user}})
+    }
+    if (user.id !== Number(req.params.id) && !user.isAdmin) {
+      return res
+        .status(403)
+        .send({error: {status: 403, message: 'Access denied.'}})
+    } else {
+      next()
+    }
+  } catch (error) {
+    next(error)
+  }
+}
 
 //GET route ('/api/order/') to display GUEST cart
 router.get('/', (req, res, next) => {
@@ -19,9 +37,8 @@ router.get('/', (req, res, next) => {
 })
 
 //GET route ('api/order/:id') to display logged in user's cart
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', authorize, async (req, res, next) => {
   try {
-    console.log('req.session', req.session, 0)
     const cart = await Order.findOrCreate({
       // include: CartItem,
       include: [
@@ -76,7 +93,7 @@ router.post('/:productId', async (req, res, next) => {
 })
 
 //POST route to add items to the cart for a user
-router.post('/:userId/:productId', async (req, res, next) => {
+router.post('/:userId/:productId', authorize, async (req, res, next) => {
   const cart = await Order.findOrCreate({
     include: [
       {
@@ -154,7 +171,7 @@ router.put('/:productId', async (req, res, next) => {
 })
 
 //PUT route ('api/order/:userId/:productId') to decrement quantity of items for USER
-router.put('/:userId/:productId', async (req, res, next) => {
+router.put('/:userId/:productId', authorize, async (req, res, next) => {
   let cart = await Order.findOne({
     include: [
       {
@@ -210,7 +227,7 @@ router.delete('/:productId', async (req, res, next) => {
 
 //DELETE route to remove an item from a logged in users cart
 
-router.delete('/:userId/:productId', async (req, res, next) => {
+router.delete('/:userId/:productId', authorize, async (req, res, next) => {
   try {
     let cart = await Order.findOne({
       include: [
