@@ -1,32 +1,66 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {myOrder, guestOrder} from '../store'
+import {
+  myOrder,
+  guestOrder,
+  guestProduct,
+  userProduct,
+  userProductRemove,
+  guestProductRemove,
+  userProductDelete,
+  guestProductDelete
+} from '../store'
 
 export class Cart extends React.Component {
+  constructor() {
+    super()
+    this.addClickHandler = this.addClickHandler.bind(this)
+    this.removeClickHandler = this.removeClickHandler.bind(this)
+    this.deleteClickHandler = this.deleteClickHandler.bind(this)
+  }
+
   componentDidMount() {
     const id = this.props.user.id
     const order = this.props.order
     if (id && !order.id) {
-      console.log('inside if 1')
       this.props.getMyOrder(id)
     } else if (id && order.userId !== id) {
-      console.log('inside else if 2')
       this.props.getMyOrder(id)
     } else if (!id) {
-      console.log('in the else if 3')
       // if no user is associated with state, get guest cart
       this.props.getGuestOrder()
     }
   }
 
-  //if there is no order, create a new order (line 19)
-
   componentDidUpdate() {
-    console.log('CART COMPONENT UPDATED')
     const id = this.props.user.id
     const order = this.props.order
     if (id && !order.id) {
       this.props.getMyOrder(id)
+    }
+  }
+
+  addClickHandler(productId) {
+    if (this.props.user.id) {
+      this.props.userProduct(productId, this.props.user.id)
+    } else {
+      this.props.guestProduct(productId)
+    }
+  }
+
+  removeClickHandler(productId) {
+    if (this.props.user.id) {
+      this.props.userProductRemove(productId, this.props.user.id)
+    } else {
+      this.props.guestProductRemove(productId)
+    }
+  }
+
+  deleteClickHandler(productId) {
+    if (this.props.user.id) {
+      this.props.userProductDelete(productId, this.props.user.id)
+    } else {
+      this.props.guestProductDelete(productId)
     }
   }
 
@@ -45,9 +79,13 @@ export class Cart extends React.Component {
             <div className="flexbox-container">
               <div>
                 {order.products.map(item => {
-                  let itemTotal = item.price / 100 * item.quantity
+                  let quantity =
+                    this.props.user.id && item.order_product
+                      ? item.order_product.quantity
+                      : item.quantity
+                  let itemTotal = item.price / 100 * quantity
+                  // let itemTotal = Math.round(item.price / 100 * quantity).toFixed(2)
                   cartTotal += itemTotal
-                  console.log('cart total: ', cartTotal)
                   return (
                     <div key={item.id} className="flex-item">
                       <div>
@@ -61,14 +99,29 @@ export class Cart extends React.Component {
                       <div>
                         <p>Item Total: ${itemTotal}</p>
                         <p>
-                          <button>-</button>
-                          Quantity: {item.quantity}
-                          <button>+</button>
+                          <button
+                            type="button"
+                            onClick={() => this.removeClickHandler(item.id)}
+                          >
+                            -
+                          </button>
+                          Quantity: {quantity}
+                          <button
+                            type="button"
+                            onClick={() => this.addClickHandler(item.id)}
+                          >
+                            +
+                          </button>
                         </p>
                       </div>
 
                       <div>
-                        <button>X</button>
+                        <button
+                          type="button"
+                          onClick={() => this.deleteClickHandler(item.id)}
+                        >
+                          X
+                        </button>
                       </div>
                     </div>
                   )
@@ -76,7 +129,7 @@ export class Cart extends React.Component {
               </div>
               <div>
                 <div>
-                  <h1>Total: ${cartTotal}</h1>
+                  <h1>Total: ${cartTotal.toFixed(2)}</h1>
                   <button>Purchase</button>
                 </div>
               </div>
@@ -105,7 +158,16 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getMyOrder: id => dispatch(myOrder(id)),
-    getGuestOrder: () => dispatch(guestOrder())
+    getGuestOrder: () => dispatch(guestOrder()),
+    userProduct: (productId, userId) =>
+      dispatch(userProduct(productId, userId)),
+    guestProduct: productId => dispatch(guestProduct(productId)),
+    userProductRemove: (productId, userId) =>
+      dispatch(userProductRemove(productId, userId)),
+    guestProductRemove: productId => dispatch(guestProductRemove(productId)),
+    userProductDelete: (productId, userId) =>
+      dispatch(userProductDelete(productId, userId)),
+    guestProductDelete: productId => dispatch(guestProductDelete(productId))
   }
 }
 

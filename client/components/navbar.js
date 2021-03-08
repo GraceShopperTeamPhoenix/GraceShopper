@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
-import {createUser} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <div>
@@ -25,9 +24,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
             isAdmin ? (
               <div i wanna do liker>
                 {/* The navbar will show these links after you log in as an Amin*/}
-                <Link to="/home" id="link">
-                  Home
-                </Link>
+                <Link to="/home" id="link">Home</Link>
                 <Link to="/users">Users</Link>
                 <Link to="/products">Products</Link>
                 <Link to="/cart">Cart</Link>
