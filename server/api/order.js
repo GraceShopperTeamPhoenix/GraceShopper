@@ -11,12 +11,14 @@ async function authorize(req, res, next) {
     if (req.session.passport) {
       user = await User.findOne({where: {id: req.session.passport.user}})
     }
-    if (user.id !== Number(req.params.id) && !user.isAdmin) {
-      return res
-        .status(403)
-        .send({error: {status: 403, message: 'Access denied.'}})
-    } else {
-      next()
+    if (user) {
+      if (user.id !== Number(req.params.id) && !user.isAdmin) {
+        return res
+          .status(403)
+          .send({error: {status: 403, message: 'Access denied.'}})
+      } else {
+        next()
+      }
     }
   } catch (error) {
     next(error)
@@ -150,6 +152,24 @@ router.post('/:userId/:productId', authorize, async (req, res, next) => {
   }
 })
 
+// PUT route ('/api/order/received/:userId') to update user cart to 'received'
+router.put('/received/:userId', async (req, res, next) => {
+  try {
+    let updatedCart = await Order.update(
+      {status: 'received'},
+      {
+        where: {
+          userId: req.params.userId,
+          status: 'pending'
+        }
+      }
+    )
+    res.send(updatedCart)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //PUT route ('api/order/:productId') to decrement quantity of items for GUEST
 router.put('/:productId', async (req, res, next) => {
   try {
@@ -260,4 +280,10 @@ router.delete('/:userId/:productId', authorize, async (req, res, next) => {
   } catch (error) {
     next(error)
   }
+})
+
+// DELETE route to remove guest cart from session
+router.delete('/', (req, res, next) => {
+  req.session.cart = null
+  res.sendStatus(200)
 })

@@ -1,35 +1,56 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {me} from '../store'
-import user from '../store/user'
-import {myOrder, emptyGuestCart} from '../store/order'
+import {myOrder, emptyGuestCart, checkoutUserCart} from '../store/order'
 
 class ConfirmationPage extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      receivedOrder: {}
+    }
+  }
   componentDidMount() {
+    const receivedOrder = this.state.receivedOrder
+    const order = this.props.order
     if (!this.props.user.guest) {
       this.props.loadInitialData()
       const id = this.props.user.id
       if (id) {
         this.props.getMyOrder(id)
       }
+    } else if (
+      this.props.user.guest &&
+      order.status === 'pending' &&
+      !receivedOrder.products
+    ) {
+      this.setState({
+        receivedOrder: this.props.order
+      })
+      this.props.clearGuestCart()
     }
   }
 
   componentDidUpdate() {
     const id = this.props.user.id
     const order = this.props.order
-    if (!this.props.user.guest) {
-      if (id && !order.id) {
-        this.props.getMyOrder(id)
-      }
-    } else if (order.id) {
-      this.props.clearGuestCart()
+    const receivedOrder = this.state.receivedOrder
+
+    if (
+      !this.props.user.guest &&
+      order.status === 'pending' &&
+      !receivedOrder.products
+    ) {
+      this.setState({
+        receivedOrder: this.props.order
+      })
+      this.props.checkoutUserCart(id)
     }
   }
 
   render() {
     const {email} = this.props
-    const order = this.props.order || {products: []}
+    const order = this.state.receivedOrder || {products: []}
     if (order.products) {
       if (order.products.length > 0) {
         let cartTotal = 0
@@ -47,7 +68,6 @@ class ConfirmationPage extends React.Component {
                   {order.products.map(item => {
                     let itemTotal = item.price / 100 * item.quantity
                     cartTotal += itemTotal
-                    console.log('cart total: ', cartTotal)
                     return (
                       <div key={item.id} id="cart-product">
                         <div>
@@ -62,7 +82,7 @@ class ConfirmationPage extends React.Component {
                           <p>
                             Quantity: {item.quantity} @ ${item.price / 100}
                           </p>
-                          <p>Item Total: ${itemTotal}</p>
+                          <p>Item Total: ${itemTotal.toFixed(2)}</p>
                         </div>
                       </div>
                     )
@@ -70,7 +90,7 @@ class ConfirmationPage extends React.Component {
                 </div>
                 <div>
                   <div>
-                    <h1>Total: ${cartTotal}</h1>
+                    <h1>Total: ${cartTotal.toFixed(2)}</h1>
                   </div>
                 </div>
               </div>
@@ -104,6 +124,9 @@ const mapDispatch = dispatch => {
     },
     clearGuestCart() {
       dispatch(emptyGuestCart())
+    },
+    checkoutUserCart(id) {
+      dispatch(checkoutUserCart(id))
     }
   }
 }
