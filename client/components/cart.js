@@ -7,7 +7,9 @@ import {
   guestProduct,
   userProduct,
   userProductRemove,
-  guestProductRemove
+  guestProductRemove,
+  userProductDelete,
+  guestProductDelete
 } from '../store'
 import CheckoutGuest from './CheckoutGuest'
 
@@ -21,39 +23,31 @@ export class Cart extends React.Component {
     this.addClickHandler = this.addClickHandler.bind(this)
     this.removeClickHandler = this.removeClickHandler.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.deleteClickHandler = this.deleteClickHandler.bind(this)
   }
 
   componentDidMount() {
-    console.log('CART COMPONENT MOUNTED')
     const id = this.props.user.id
     const order = this.props.order
     if (id && !order.id) {
-      console.log('USER ID YES - ORDER ID NO')
       this.props.getMyOrder(id)
     } else if (id && order.userId !== id) {
-      console.log(
-        'USER ID YES - USER ON CURRENT ORDER DOES NOT MATCH CURRENT USER'
-      )
       this.props.getMyOrder(id)
     } else if (!id) {
-      console.log('NO USER ID')
       // if no user is associated with state, get guest cart
       this.props.getGuestOrder()
     }
   }
 
   componentDidUpdate() {
-    console.log('CART COMPONENT UPDATED')
     const id = this.props.user.id
     const order = this.props.order
     if (id && !order.id) {
-      console.log('USER ID YES - ORDER ID NO')
       this.props.getMyOrder(id)
     }
   }
 
   addClickHandler(productId) {
-    console.log('add clicked')
     if (this.props.user.id) {
       this.props.userProduct(productId, this.props.user.id)
     } else {
@@ -62,7 +56,6 @@ export class Cart extends React.Component {
   }
 
   removeClickHandler(productId) {
-    console.log('remove clicked')
     if (this.props.user.id) {
       this.props.userProductRemove(productId, this.props.user.id)
     } else {
@@ -70,12 +63,19 @@ export class Cart extends React.Component {
     }
   }
 
+
   handleSubmit() {
     if (this.props.user.id) {
       //add thunk to update cart status 'pending' switch 'received'
       this.props.history.push('/confirmation')
     } else {
       this.setState({guestCheckout: true})
+
+  deleteClickHandler(productId) {
+    if (this.props.user.id) {
+      this.props.userProductDelete(productId, this.props.user.id)
+    } else {
+      this.props.guestProductDelete(productId)
     }
   }
 
@@ -129,7 +129,12 @@ export class Cart extends React.Component {
                       </div>
 
                       <div>
-                        <button>X</button>
+                        <button
+                          type="button"
+                          onClick={() => this.deleteClickHandler(item.id)}
+                        >
+                          X
+                        </button>
                       </div>
                     </div>
                   )
@@ -179,7 +184,10 @@ const mapDispatch = dispatch => {
     guestProduct: productId => dispatch(guestProduct(productId)),
     userProductRemove: (productId, userId) =>
       dispatch(userProductRemove(productId, userId)),
-    guestProductRemove: productId => dispatch(guestProductRemove(productId))
+    guestProductRemove: productId => dispatch(guestProductRemove(productId)),
+    userProductDelete: (productId, userId) =>
+      dispatch(userProductDelete(productId, userId)),
+    guestProductDelete: productId => dispatch(guestProductDelete(productId))
   }
 }
 

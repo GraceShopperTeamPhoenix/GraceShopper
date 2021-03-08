@@ -10,6 +10,8 @@ const ADD_USER_PRODUCT = 'ADD_USER_PRODUCT'
 const REMOVE_GUEST_PRODUCT = 'REMOVE_GUEST_PRODUCT'
 const REMOVE_USER_PRODUCT = 'REMOVE_USER_PRODUCT'
 const CLEAR_GUEST_CART = 'CLEAR_CART'
+const DELETE_GUEST_PRODUCT = 'DELETE_GUEST_PRODUCT'
+const DELETE_USER_PRODUCT = 'DELETE_USER_PRODUCT'
 
 /**
  * INITIAL STATE
@@ -26,6 +28,8 @@ const addUserProduct = order => ({type: ADD_USER_PRODUCT, order})
 const removeGuestProduct = order => ({type: REMOVE_GUEST_PRODUCT, order})
 const removeUserProduct = order => ({type: REMOVE_USER_PRODUCT, order})
 const clearGuestCart = () => ({type: CLEAR_GUEST_CART})
+const deleteGuestProduct = order => ({type: DELETE_GUEST_PRODUCT, order})
+const deleteUserProduct = order => ({type: DELETE_USER_PRODUCT, order})
 
 /**
  * THUNK CREATORS
@@ -71,7 +75,7 @@ export const userProduct = (productId, userId) => async dispatch => {
   }
 }
 
-//Remove or decrement product from guest cart
+//decrement product from guest cart
 export const guestProductRemove = productId => async dispatch => {
   try {
     const {data} = await axios.put(`/api/order/${productId}`)
@@ -81,7 +85,7 @@ export const guestProductRemove = productId => async dispatch => {
   }
 }
 
-//Remove or decrement product from user cart
+//decrement product from user cart
 export const userProductRemove = (productId, userId) => async dispatch => {
   try {
     const {data} = await axios.put(`/api/order/${userId}/${productId}`)
@@ -91,6 +95,7 @@ export const userProductRemove = (productId, userId) => async dispatch => {
   }
 }
 
+
 // Clears guest cart
 export const emptyGuestCart = () => async dispatch => {
   try {
@@ -98,6 +103,25 @@ export const emptyGuestCart = () => async dispatch => {
     dispatch(clearGuestCart())
   } catch (error) {
     console.error(error)
+
+//delete product from guest cart
+export const guestProductDelete = productId => async dispatch => {
+  try {
+    const {data} = await axios.delete(`/api/order/${productId}`)
+    dispatch(deleteGuestProduct(data))
+  } catch (error) {
+    console.log('Error deleting product', error)
+  }
+}
+
+//delete product from user cart
+
+export const userProductDelete = (productId, userId) => async dispatch => {
+  try {
+    const {data} = await axios.delete(`/api/order/${userId}/${productId}`)
+    dispatch(deleteUserProduct(data))
+  } catch (error) {
+    console.log('Error deleting product', error)
   }
 }
 
@@ -120,6 +144,10 @@ export default function(state = defaultOrder, action) {
       return action.order
     case CLEAR_GUEST_CART:
       return defaultOrder
+    case DELETE_USER_PRODUCT:
+      return action.order
+    case DELETE_GUEST_PRODUCT:
+      return action.order
     default:
       return state
   }
