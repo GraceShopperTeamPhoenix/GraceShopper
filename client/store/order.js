@@ -95,7 +95,6 @@ export const userProductRemove = (productId, userId) => async dispatch => {
   }
 }
 
-
 // Clears guest cart
 export const emptyGuestCart = () => async dispatch => {
   try {
@@ -103,7 +102,8 @@ export const emptyGuestCart = () => async dispatch => {
     dispatch(clearGuestCart())
   } catch (error) {
     console.error(error)
-
+  }
+}
 //delete product from guest cart
 export const guestProductDelete = productId => async dispatch => {
   try {

@@ -63,13 +63,14 @@ export class Cart extends React.Component {
     }
   }
 
-
   handleSubmit() {
     if (this.props.user.id) {
       //add thunk to update cart status 'pending' switch 'received'
       this.props.history.push('/confirmation')
     } else {
       this.setState({guestCheckout: true})
+    }
+  }
 
   deleteClickHandler(productId) {
     if (this.props.user.id) {
