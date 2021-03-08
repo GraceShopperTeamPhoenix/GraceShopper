@@ -16,13 +16,15 @@ export class AllProducts extends React.Component {
     } else {
       return (
         <div>
-          <h1>Products</h1>
+          <div className="pageHeader">
+            <img src="/products.png" className="pageHeader" />
+          </div>
           <div className="flexbox-container">
             {products.map(product => (
               <div key={product.id} className="flex-item">
                 <Link to={`/products/${product.id}`}>{product.name}</Link>
                 <br />
-                <img src={product.imageUrl} width="100px" />
+                <img src={product.imageUrl} id="prodImg" />
                 <p>$ {product.price / 100}</p>
                 <button type="button">Add to Cart</button>
               </div>

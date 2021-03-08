@@ -5,7 +5,7 @@ import Routes from './routes'
 
 const App = () => {
   return (
-    <div className="container">
+    <div>
       <Navbar />
       <Routes />
       <img src="bottom4.png" className="footer" />
