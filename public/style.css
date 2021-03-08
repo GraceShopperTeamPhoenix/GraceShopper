@@ -37,9 +37,14 @@
 
 } */
 .minor-Icon {
+  /* flex: 1 0 30%; */
+  justify-content: center;
+  margin: auto;
+  align-content: center;
+}
+.Icon {
   mix-blend-mode: multiply;
-  width: 200;
-  flex: 1 0 21%;
+  width: 200px;
 }
 body {
   font-family: alegreya;
@@ -47,7 +52,7 @@ body {
   margin: 0px;
   height: 100%;
   width: 100%;
-  background-image: url(/background2.jpg);
+  background-color: ivory;
   background-position: center;
   background-size: cover;
   padding-left: 0;
@@ -96,6 +101,7 @@ form div {
   border-style: groove;
   text-align: center;
   padding: 5px;
+  mix-blend-mode: multiply;
 }
 #prodImg {
   width: 100px;

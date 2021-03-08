@@ -8,10 +8,15 @@ export default function Home() {
   return (
     <div>
       <div className="flexbox-container">
-        <img src="products.png" className="minor-Icon" />
-        <img src="cactiLink.jpg" className="minor-Icon" />
-        <img src="aloeLink.jpg" className="minor-Icon" />
-        <img src="succulentLink.png" className=" minor-Icon" />
+        <div className="minor-Icon">
+          <img src="cacti2.png" className="Icon" />
+        </div>
+        <div className="minor-Icon">
+          <img src="aloeLink.jpg" className="Icon" />
+        </div>
+        <div className="minor-Icon">
+          <img src="succulentLink.png" className="Icon" />
+        </div>
       </div>
     </div>
   )
