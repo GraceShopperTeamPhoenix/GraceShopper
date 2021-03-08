@@ -12,6 +12,7 @@ const REMOVE_USER_PRODUCT = 'REMOVE_USER_PRODUCT'
 const CLEAR_GUEST_CART = 'CLEAR_CART'
 const DELETE_GUEST_PRODUCT = 'DELETE_GUEST_PRODUCT'
 const DELETE_USER_PRODUCT = 'DELETE_USER_PRODUCT'
+const CLEAR_USER_CART = 'CLEAR_USER_CART'
 
 /**
  * INITIAL STATE
@@ -30,6 +31,7 @@ const removeUserProduct = order => ({type: REMOVE_USER_PRODUCT, order})
 const clearGuestCart = () => ({type: CLEAR_GUEST_CART})
 const deleteGuestProduct = order => ({type: DELETE_GUEST_PRODUCT, order})
 const deleteUserProduct = order => ({type: DELETE_USER_PRODUCT, order})
+const clearUserCart = () => ({type: CLEAR_USER_CART})
 
 /**
  * THUNK CREATORS
@@ -125,6 +127,16 @@ export const userProductDelete = (productId, userId) => async dispatch => {
   }
 }
 
+// checkout user cart
+export const checkoutUserCart = userId => async dispatch => {
+  try {
+    await axios.put(`/api/order/received/${userId}`)
+    dispatch(clearUserCart())
+  } catch (error) {
+    console.log('Error clearing user cart, ', error)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -148,6 +160,8 @@ export default function(state = defaultOrder, action) {
       return action.order
     case DELETE_GUEST_PRODUCT:
       return action.order
+    case CLEAR_USER_CART:
+      return defaultOrder
     default:
       return state
   }
