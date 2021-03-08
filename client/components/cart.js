@@ -95,7 +95,8 @@ export class Cart extends React.Component {
                       </div>
 
                       <div>
-                        <p>Item Total: ${itemTotal}</p>
+                        <p>Price: ${item.price / 100}</p>
+                        <p>Item Total: ${itemTotal.toFixed(2)}</p>
                         <p>
                           <button
                             type="button"
