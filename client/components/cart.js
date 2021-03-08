@@ -1,3 +1,4 @@
+import {check} from 'prettier'
 import React from 'react'
 import {connect} from 'react-redux'
 import {
@@ -8,12 +9,18 @@ import {
   userProductRemove,
   guestProductRemove
 } from '../store'
+import CheckoutGuest from './index'
 
 export class Cart extends React.Component {
   constructor() {
     super()
+    this.state = {
+      guestCheckout: false
+    }
+
     this.addClickHandler = this.addClickHandler.bind(this)
     this.removeClickHandler = this.removeClickHandler.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
@@ -60,6 +67,15 @@ export class Cart extends React.Component {
       this.props.userProductRemove(productId, this.props.user.id)
     } else {
       this.props.guestProductRemove(productId)
+    }
+  }
+
+  handleSubmit() {
+    if (this.props.user.id) {
+      //add thunk to update cart status 'pending' switch 'received'
+      history.push('/comfirmation')
+    } else {
+      this.setState({guestCheckout: true})
     }
   }
 
@@ -122,8 +138,11 @@ export class Cart extends React.Component {
               <div>
                 <div>
                   <h1>Total: ${cartTotal.toFixed(2)}</h1>
-                  <button>Purchase</button>
+                  <button type="submit" onClick={this.handleSubmit}>
+                    Purchase
+                  </button>
                 </div>
+                <div>{this.state.guestCheckout && <CheckoutGuest />}</div>
               </div>
             </div>
           </div>
