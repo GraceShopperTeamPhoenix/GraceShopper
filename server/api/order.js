@@ -195,4 +195,52 @@ router.put('/:userId/:productId', async (req, res, next) => {
   res.json(updatedCart)
 })
 
-//PUT route to edit status of cart to 'received' (checkout)
+//DELETE route to remove an item from a guest cart
+router.delete('/:productId', async (req, res, next) => {
+  try {
+    let products = req.session.cart.products
+    req.session.cart.products = products.filter(
+      item => item.id !== Number(req.params.productId)
+    )
+    res.json(req.session.cart)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//DELETE route to remove an item from a logged in users cart
+
+router.delete('/:userId/:productId', async (req, res, next) => {
+  try {
+    let cart = await Order.findOne({
+      include: [
+        {
+          model: Product
+        }
+      ],
+      where: {
+        userId: req.params.userId,
+        status: 'pending'
+      }
+    })
+
+    let products = cart.products
+    let item = products.find(
+      product => product.id === Number(req.params.productId)
+    )
+    await cart.removeProduct(item)
+    const updatedCart = await Order.findOne({
+      include: [
+        {
+          model: Product
+        }
+      ],
+      where: {
+        id: cart.id
+      }
+    })
+    res.json(updatedCart)
+  } catch (error) {
+    next(error)
+  }
+})
