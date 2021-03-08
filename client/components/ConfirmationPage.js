@@ -2,27 +2,32 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {me} from '../store'
 import user from '../store/user'
-import {myOrder} from '../store/order'
+import {myOrder, emptyGuestCart} from '../store/order'
 
 class ConfirmationPage extends React.Component {
   componentDidMount() {
-    this.props.loadInitialData()
-    const id = this.props.user.id
-    if (id) {
-      this.props.getMyOrder(id)
+    if (!this.props.user.guest) {
+      this.props.loadInitialData()
+      const id = this.props.user.id
+      if (id) {
+        this.props.getMyOrder(id)
+      }
     }
   }
 
   componentDidUpdate() {
     const id = this.props.user.id
     const order = this.props.order
-    if (id && !order.id) {
-      this.props.getMyOrder(id)
+    if (!this.props.user.guest) {
+      if (id && !order.id) {
+        this.props.getMyOrder(id)
+      }
+    } else if (order.id) {
+      this.props.clearGuestCart()
     }
   }
 
   render() {
-    console.log('RENDER PROPS =>', this.props)
     const {email} = this.props
     const order = this.props.order || {products: []}
     if (order.products) {
@@ -73,16 +78,15 @@ class ConfirmationPage extends React.Component {
           </div>
         )
       } else {
-        return <h1>no products</h1>
+        return <h1>Please create an order.</h1>
       }
     } else {
-      return <h1>No items in cart.</h1>
+      return <h1>Please create an order.</h1>
     }
   }
 }
 
 const mapState = state => {
-  console.log('mapping state to props with state', state)
   return {
     email: state.user.email,
     user: state.user,
@@ -97,6 +101,9 @@ const mapDispatch = dispatch => {
     },
     getMyOrder(id) {
       dispatch(myOrder(id))
+    },
+    clearGuestCart() {
+      dispatch(emptyGuestCart())
     }
   }
 }

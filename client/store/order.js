@@ -9,6 +9,7 @@ const ADD_GUEST_PRODUCT = 'ADD_GUEST_PRODUCT'
 const ADD_USER_PRODUCT = 'ADD_USER_PRODUCT'
 const REMOVE_GUEST_PRODUCT = 'REMOVE_GUEST_PRODUCT'
 const REMOVE_USER_PRODUCT = 'REMOVE_USER_PRODUCT'
+const CLEAR_GUEST_CART = 'CLEAR_CART'
 const DELETE_GUEST_PRODUCT = 'DELETE_GUEST_PRODUCT'
 const DELETE_USER_PRODUCT = 'DELETE_USER_PRODUCT'
 
@@ -26,6 +27,7 @@ const addGuestProduct = order => ({type: ADD_GUEST_PRODUCT, order})
 const addUserProduct = order => ({type: ADD_USER_PRODUCT, order})
 const removeGuestProduct = order => ({type: REMOVE_GUEST_PRODUCT, order})
 const removeUserProduct = order => ({type: REMOVE_USER_PRODUCT, order})
+const clearGuestCart = () => ({type: CLEAR_GUEST_CART})
 const deleteGuestProduct = order => ({type: DELETE_GUEST_PRODUCT, order})
 const deleteUserProduct = order => ({type: DELETE_USER_PRODUCT, order})
 
@@ -36,7 +38,6 @@ const deleteUserProduct = order => ({type: DELETE_USER_PRODUCT, order})
 // Gets user cart
 export const myOrder = id => async dispatch => {
   try {
-    console.log('IN GETMYORDER THUNK')
     const res = await axios.get(`/api/order/${id}`)
     dispatch(getOrder(res.data || defaultOrder))
   } catch (err) {
@@ -94,6 +95,15 @@ export const userProductRemove = (productId, userId) => async dispatch => {
   }
 }
 
+// Clears guest cart
+export const emptyGuestCart = () => async dispatch => {
+  try {
+    await axios.delete('/api/order/')
+    dispatch(clearGuestCart())
+  } catch (error) {
+    console.error(error)
+  }
+}
 //delete product from guest cart
 export const guestProductDelete = productId => async dispatch => {
   try {
@@ -132,6 +142,8 @@ export default function(state = defaultOrder, action) {
       return action.order
     case REMOVE_USER_PRODUCT:
       return action.order
+    case CLEAR_GUEST_CART:
+      return defaultOrder
     case DELETE_USER_PRODUCT:
       return action.order
     case DELETE_GUEST_PRODUCT:
