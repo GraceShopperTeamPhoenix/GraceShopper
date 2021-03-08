@@ -19,9 +19,9 @@ class CheckoutGuest extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleSubmit(e) {
-    e.preventDefault()
-    history.push('/confirmation')
+  handleSubmit() {
+    console.log('guest checkout submitting.....')
+    this.props.history.push('/confirmation')
   }
 
   handleChange(e) {
@@ -33,7 +33,7 @@ class CheckoutGuest extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.props.handleSubmit}>
+        <form>
           <div>
             <label htmlFor="firstName">
               <small>First Name</small>
@@ -60,7 +60,10 @@ class CheckoutGuest extends React.Component {
           </div>
 
           <div>
-            <button type="submit">Submit</button>
+            <button type="button" onClick={this.handleSubmit}>
+              {' '}
+              Submit{' '}
+            </button>
           </div>
         </form>
       </div>

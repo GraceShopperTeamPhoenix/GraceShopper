@@ -73,7 +73,7 @@ export class Cart extends React.Component {
   handleSubmit() {
     if (this.props.user.id) {
       //add thunk to update cart status 'pending' switch 'received'
-      history.push('/comfirmation')
+      this.props.history.push('/confirmation')
     } else {
       this.setState({guestCheckout: true})
     }
@@ -142,7 +142,11 @@ export class Cart extends React.Component {
                     Purchase
                   </button>
                 </div>
-                <div>{this.state.guestCheckout && <CheckoutGuest />}</div>
+                <div>
+                  {this.state.guestCheckout && (
+                    <CheckoutGuest history={this.props.history} />
+                  )}
+                </div>
               </div>
             </div>
           </div>
