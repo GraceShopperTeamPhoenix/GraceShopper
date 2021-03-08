@@ -195,8 +195,4 @@ router.put('/:userId/:productId', async (req, res, next) => {
   res.json(updatedCart)
 })
 
-//DELETE route to remove items
-
 //PUT route to edit status of cart to 'received' (checkout)
-
-//if this is your first time here, set up a cart;

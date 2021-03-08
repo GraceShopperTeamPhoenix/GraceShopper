@@ -9,7 +9,6 @@ class AddToCart extends React.Component {
   }
 
   onClick() {
-    console.log('click')
     if (this.props.user.id) {
       this.props.userProduct(this.props.productId, this.props.user.id)
     } else {

@@ -1,8 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {myOrder, guestOrder} from '../store'
+import {
+  myOrder,
+  guestOrder,
+  guestProduct,
+  userProduct,
+  userProductRemove,
+  guestProductRemove
+} from '../store'
 
 export class Cart extends React.Component {
+  constructor() {
+    super()
+    this.addClickHandler = this.addClickHandler.bind(this)
+    this.removeClickHandler = this.removeClickHandler.bind(this)
+  }
+
   componentDidMount() {
     console.log('CART COMPONENT MOUNTED')
     const id = this.props.user.id
@@ -22,8 +35,6 @@ export class Cart extends React.Component {
     }
   }
 
-  //if there is no order, create a new order (line 19)
-
   componentDidUpdate() {
     console.log('CART COMPONENT UPDATED')
     const id = this.props.user.id
@@ -31,6 +42,24 @@ export class Cart extends React.Component {
     if (id && !order.id) {
       console.log('USER ID YES - ORDER ID NO')
       this.props.getMyOrder(id)
+    }
+  }
+
+  addClickHandler(productId) {
+    console.log('add clicked')
+    if (this.props.user.id) {
+      this.props.userProduct(productId, this.props.user.id)
+    } else {
+      this.props.guestProduct(productId)
+    }
+  }
+
+  removeClickHandler(productId) {
+    console.log('remove clicked')
+    if (this.props.user.id) {
+      this.props.userProductRemove(productId, this.props.user.id)
+    } else {
+      this.props.guestProductRemove(productId)
     }
   }
 
@@ -67,9 +96,19 @@ export class Cart extends React.Component {
                       <div>
                         <p>Item Total: ${itemTotal}</p>
                         <p>
-                          <button>-</button>
+                          <button
+                            type="button"
+                            onClick={() => this.removeClickHandler(item.id)}
+                          >
+                            -
+                          </button>
                           Quantity: {quantity}
-                          <button>+</button>
+                          <button
+                            type="button"
+                            onClick={() => this.addClickHandler(item.id)}
+                          >
+                            +
+                          </button>
                         </p>
                       </div>
 
@@ -82,7 +121,7 @@ export class Cart extends React.Component {
               </div>
               <div>
                 <div>
-                  <h1>Total: ${cartTotal}</h1>
+                  <h1>Total: ${cartTotal.toFixed(2)}</h1>
                   <button>Purchase</button>
                 </div>
               </div>
@@ -111,7 +150,13 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getMyOrder: id => dispatch(myOrder(id)),
-    getGuestOrder: () => dispatch(guestOrder())
+    getGuestOrder: () => dispatch(guestOrder()),
+    userProduct: (productId, userId) =>
+      dispatch(userProduct(productId, userId)),
+    guestProduct: productId => dispatch(guestProduct(productId)),
+    userProductRemove: (productId, userId) =>
+      dispatch(userProductRemove(productId, userId)),
+    guestProductRemove: productId => dispatch(guestProductRemove(productId))
   }
 }
 

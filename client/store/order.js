@@ -7,6 +7,8 @@ const GET_ORDER = 'GET_ORDER'
 const GET_GUEST_ORDER = 'GET_GUEST_ORDER'
 const ADD_GUEST_PRODUCT = 'ADD_GUEST_PRODUCT'
 const ADD_USER_PRODUCT = 'ADD_USER_PRODUCT'
+const REMOVE_GUEST_PRODUCT = 'REMOVE_GUEST_PRODUCT'
+const REMOVE_USER_PRODUCT = 'REMOVE_USER_PRODUCT'
 
 /**
  * INITIAL STATE
@@ -20,6 +22,8 @@ const getOrder = order => ({type: GET_ORDER, order})
 const getGuestOrder = order => ({type: GET_GUEST_ORDER, order})
 const addGuestProduct = order => ({type: ADD_GUEST_PRODUCT, order})
 const addUserProduct = order => ({type: ADD_USER_PRODUCT, order})
+const removeGuestProduct = order => ({type: REMOVE_GUEST_PRODUCT, order})
+const removeUserProduct = order => ({type: REMOVE_USER_PRODUCT, order})
 
 /**
  * THUNK CREATORS
@@ -66,6 +70,26 @@ export const userProduct = (productId, userId) => async dispatch => {
   }
 }
 
+//Remove or decrement product from guest cart
+export const guestProductRemove = productId => async dispatch => {
+  try {
+    const {data} = await axios.put(`/api/order/${productId}`)
+    dispatch(removeGuestProduct(data))
+  } catch (error) {
+    console.log('Error removing product', error)
+  }
+}
+
+//Remove or decrement product from user cart
+export const userProductRemove = (productId, userId) => async dispatch => {
+  try {
+    const {data} = await axios.put(`/api/order/${userId}/${productId}`)
+    dispatch(removeUserProduct(data))
+  } catch (error) {
+    console.log('Error removing product', error)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -78,6 +102,10 @@ export default function(state = defaultOrder, action) {
     case ADD_GUEST_PRODUCT:
       return action.order
     case ADD_USER_PRODUCT:
+      return action.order
+    case REMOVE_GUEST_PRODUCT:
+      return action.order
+    case REMOVE_USER_PRODUCT:
       return action.order
     default:
       return state
