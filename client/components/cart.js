@@ -4,16 +4,19 @@ import {myOrder, guestOrder} from '../store'
 
 export class Cart extends React.Component {
   componentDidMount() {
+    console.log('CART COMPONENT MOUNTED')
     const id = this.props.user.id
     const order = this.props.order
     if (id && !order.id) {
-      console.log('inside if 1')
+      console.log('USER ID YES - ORDER ID NO')
       this.props.getMyOrder(id)
     } else if (id && order.userId !== id) {
-      console.log('inside else if 2')
+      console.log(
+        'USER ID YES - USER ON CURRENT ORDER DOES NOT MATCH CURRENT USER'
+      )
       this.props.getMyOrder(id)
     } else if (!id) {
-      console.log('in the else if 3')
+      console.log('NO USER ID')
       // if no user is associated with state, get guest cart
       this.props.getGuestOrder()
     }
@@ -26,6 +29,7 @@ export class Cart extends React.Component {
     const id = this.props.user.id
     const order = this.props.order
     if (id && !order.id) {
+      console.log('USER ID YES - ORDER ID NO')
       this.props.getMyOrder(id)
     }
   }
@@ -43,7 +47,12 @@ export class Cart extends React.Component {
             <div className="flexbox-container">
               <div>
                 {order.products.map(item => {
-                  let itemTotal = item.price / 100 * item.quantity
+                  let quantity =
+                    this.props.user.id && item.order_product
+                      ? item.order_product.quantity
+                      : item.quantity
+                  let itemTotal = item.price / 100 * quantity
+                  // let itemTotal = Math.round(item.price / 100 * quantity).toFixed(2)
                   cartTotal += itemTotal
                   return (
                     <div key={item.id} className="flex-item">
@@ -59,7 +68,7 @@ export class Cart extends React.Component {
                         <p>Item Total: ${itemTotal}</p>
                         <p>
                           <button>-</button>
-                          Quantity: {item.quantity}
+                          Quantity: {quantity}
                           <button>+</button>
                         </p>
                       </div>

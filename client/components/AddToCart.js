@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {guestProduct} from '../store/order'
+import {guestProduct, userProduct} from '../store/order'
 
 class AddToCart extends React.Component {
   constructor() {
@@ -9,8 +9,12 @@ class AddToCart extends React.Component {
   }
 
   onClick() {
-    console.log('clicked!')
-    this.props.guestProduct(this.props.productId)
+    console.log('click')
+    if (this.props.user.id) {
+      this.props.userProduct(this.props.productId, this.props.user.id)
+    } else {
+      this.props.guestProduct(this.props.productId)
+    }
   }
 
   render() {
@@ -30,7 +34,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    guestProduct: productId => dispatch(guestProduct(productId))
+    guestProduct: productId => dispatch(guestProduct(productId)),
+    userProduct: (productId, userId) => dispatch(userProduct(productId, userId))
   }
 }
 
