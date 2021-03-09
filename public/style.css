@@ -194,12 +194,6 @@ a:hover {
   padding: 10px;
 }
 
-.confirmation-page {
-  max-width: 600px;
-  margin: auto;
-  padding: 10px;
-}
-
 .profileBox {
   border: 1px gray solid;
   margin: 20px;
@@ -223,4 +217,37 @@ a:hover {
 
 .profileWelcome {
   text-align: center;
+}
+
+/* Confirmation Page */
+
+.confirmation-page {
+  max-width: 600px;
+  margin: auto;
+  padding: 10px;
+}
+
+.conf-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid gray;
+  padding-top: 15px;
+}
+
+.conf-container div {
+  text-align: center;
+}
+
+.conf-product {
+  background-color: whitesmoke;
+  padding: 10px;
+  margin: 10px;
+  mix-blend-mode: multiply;
+}
+
+.conf-all-products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
