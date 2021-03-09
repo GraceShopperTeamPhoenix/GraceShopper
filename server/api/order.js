@@ -95,7 +95,7 @@ router.post('/:productId', async (req, res, next) => {
 })
 
 //POST route to add items to the cart for a user
-router.post('/:userId/:productId', authorize, async (req, res, next) => {
+router.post('/:id/:productId', authorize, async (req, res, next) => {
   const cart = await Order.findOrCreate({
     include: [
       {
@@ -103,11 +103,11 @@ router.post('/:userId/:productId', authorize, async (req, res, next) => {
       }
     ],
     where: {
-      userId: req.params.userId,
+      userId: req.params.id,
       status: 'pending'
     },
     defaults: {
-      userId: req.params.userId,
+      userId: req.params.id,
       status: 'pending'
     }
   })
