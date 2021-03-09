@@ -44,7 +44,6 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route path="/user" component={UserHome} />
             <Route path="/products" component={AllProducts} />
-            <Route component={Home} />
             {isAdmin && (
               <Switch>
                 {/* Routes placed here are only available after logging in */}
