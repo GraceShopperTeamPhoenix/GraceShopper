@@ -7,6 +7,10 @@ import {Link} from 'react-router-dom'
 export default function Home() {
   return (
     <div>
+      <div className="pageHeader">
+        <img src="/home.png" className="pageHeader" />
+      </div>
+
       <div className="flexbox-container">
         <div className="minor-Icon">
           <img src="cacti2.png" className="Icon" />

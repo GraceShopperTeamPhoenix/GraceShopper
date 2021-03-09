@@ -10,8 +10,10 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div className="sign-up-container">
-      <h1>Sign Up</h1>
+    <div>
+      <div className="pageHeader">
+        <img src="/signUp.png" className="pageHeader" />
+      </div>
       <p>Please fill in this form to create an account.</p>
       <br />
 
@@ -47,10 +49,8 @@ const AuthForm = props => {
           <input name="password" type="password" />
         </div>
 
-        <div className="sign-up-clearfix">
-          <button type="submit" className="signupbtn">
-            {displayName}
-          </button>
+        <div>
+          <button type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>

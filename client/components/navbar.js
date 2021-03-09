@@ -8,7 +8,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <div className="navbar">
     {isLoggedIn ? (
       isAdmin ? (
-        <div className="navbar">
+        <div>
           {/* The navbar will show these links after you log in as an Amin*/}
           <Link to="/home" id="link">
             Home
@@ -19,14 +19,14 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
           <Link to="/user">My Page</Link>
           <Link to="/cart" className="right">
             <img className="cart_image" src="cart.png" alt="shopping cart" />
-            <div className="cart_counter">18</div>
+            {/* <div className="cart_counter">18</div> */}
           </Link>
           <a href="#" onClick={handleClick} className="right">
             Logout
           </a>
         </div>
       ) : (
-        <div className="navbar">
+        <div>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
           <Link to="/products">Products</Link>
@@ -40,7 +40,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
         </div>
       )
     ) : (
-      <div className="navbar">
+      <div>
         {/* The navbar will show these links before you log in */}
         <Link to="/home" id="link">
           Home

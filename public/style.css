@@ -1,7 +1,6 @@
 .navbar {
   width: 100%;
   margin: auto;
-  display: flex;
   justify-content: space-around;
 }
 .logo {
@@ -48,7 +47,7 @@
 }
 
 .header {
-  padding: 80px;
+  padding: 5px;
   text-align: center;
   color: white;
 }
@@ -170,48 +169,10 @@ a:hover {
   background-color: rgb(116, 140, 120, 0.5);
 }
 
-input[type='text'],
-input[type='password'] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
-
-input[type='text']:focus,
-input[type='password']:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
-
-.signupbtn {
-  background-color: #4caf50;
-  color: white;
-  padding: 16px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
-.signupbtn:hover {
-  opacity: 1;
-}
-
-.sign-up-container {
-  padding: 16px;
-}
-
 .cart__image {
   size: 1px;
   object-fit: contain;
+  display: inline-block;
 }
 
 .cart__counter {
@@ -222,7 +183,7 @@ hr {
   color: var(--dark-color);
   background: var(--light-color);
   font-size: 25px;
-  display: flex;
+  display: inline-block;
   justify-content: center;
   align-items: center;
 }
