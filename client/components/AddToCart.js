@@ -11,8 +11,10 @@ class AddToCart extends React.Component {
   onClick() {
     if (this.props.user.id) {
       this.props.userProduct(this.props.productId, this.props.user.id)
+      alert('Item added to cart!')
     } else {
       this.props.guestProduct(this.props.productId)
+      alert('Item added to cart!')
     }
   }
 

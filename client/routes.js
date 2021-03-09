@@ -44,12 +44,14 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route path="/user" component={UserHome} />
             <Route path="/products" component={AllProducts} />
+            <Route component={Home} />
             {isAdmin && (
               <Switch>
                 {/* Routes placed here are only available after logging in */}
                 <Route path="/users" component={AllUsers} />
                 <Route path="/addproduct" component={AddProduct} />
                 <Route path="/editproduct/:id" component={EditProduct} />
+                <Route component={Home} />
               </Switch>
             )}
           </Switch>

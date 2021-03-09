@@ -100,7 +100,6 @@ export class Cart extends React.Component {
                       ? item.order_product.quantity
                       : item.quantity
                   let itemTotal = item.price / 100 * quantity
-                  // let itemTotal = Math.round(item.price / 100 * quantity).toFixed(2)
                   cartTotal += itemTotal
                   return (
                     <div key={item.id} className="flex-item">
