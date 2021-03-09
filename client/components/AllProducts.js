@@ -1,16 +1,33 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts} from '../store/products'
+import {fetchProducts, filterProducts} from '../store/products'
 import {Link} from 'react-router-dom'
 import {AddToCart} from './index'
 
 export class AllProducts extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      filter: 'All'
+    }
+    this.handleSelectChange = this.handleSelectChange.bind(this)
+  }
   componentDidMount() {
     this.props.getProducts()
   }
 
+  handleSelectChange(evt) {
+    this.setState({filter: evt.target.value})
+  }
   render() {
-    const products = this.props.products.all
+    const {filter} = this.state
+    let products = this.props.products.all
+    products = products.filter(product => {
+      if (filter === 'All') return product
+      if (filter === 'Succulents') return product.category === 'succulent'
+      if (filter === 'Cacti') return product.category === 'cactus'
+      if (filter === 'Aloe') return product.category === 'aloe'
+    })
     if (products.length === 0) {
       return <div>No Products</div>
     } else {
@@ -19,6 +36,12 @@ export class AllProducts extends React.Component {
           <div className="pageHeader">
             <img src="/products.png" className="pageHeader" />
           </div>
+          <select onChange={this.handleSelectChange} value={filter}>
+            <option value="All">All</option>
+            <option value="Succulents">Succulents</option>
+            <option value="Aloe">Aloe</option>
+            <option value="Cacti">Cacti</option>
+          </select>
           <div className="flexbox-container">
             {products.map(product => (
               <div key={product.id} className="flex-item">
@@ -44,7 +67,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getProducts: () => dispatch(fetchProducts())
+    getProducts: () => dispatch(fetchProducts()),
+    filterProducts: category => dispatch(filterProducts(category))
   }
 }
 
