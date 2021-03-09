@@ -22,7 +22,7 @@
 .pageHeader {
   mix-blend-mode: multiply;
   text-align: center;
-  height: 15vh;
+  height: 13vh;
 }
 .container {
   display: flex;
@@ -46,6 +46,13 @@
   mix-blend-mode: multiply;
   width: 200px;
 }
+
+.header {
+  padding: 80px;
+  text-align: center;
+  color: white;
+}
+
 body {
   font-family: alegreya;
   font-size: 20px;
@@ -96,13 +103,14 @@ form div {
   align-content: center;
 }
 .flex-item {
-  flex: 1 0 21%;
+  flex: 1 0 18%;
   border: rgb(116, 140, 120);
-  margin: 5px;
-  border-style: groove;
+  margin: 10px;
+  /* border-style: groove; */
   text-align: center;
   padding: 5px;
   mix-blend-mode: multiply;
+  background-color: whitesmoke;
 }
 #prodImg {
   width: 250px;
@@ -160,4 +168,61 @@ a {
 }
 a:hover {
   background-color: rgb(116, 140, 120, 0.5);
+}
+
+input[type='text'],
+input[type='password'] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type='text']:focus,
+input[type='password']:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+.signupbtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+.signupbtn:hover {
+  opacity: 1;
+}
+
+.sign-up-container {
+  padding: 16px;
+}
+
+.cart__image {
+  size: 1px;
+  object-fit: contain;
+}
+
+.cart__counter {
+  height: 40px;
+  width: 40px;
+  border: 1px solid var(--secondary-color);
+  border-radius: 50%;
+  color: var(--dark-color);
+  background: var(--light-color);
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
