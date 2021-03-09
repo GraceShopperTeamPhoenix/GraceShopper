@@ -20,8 +20,8 @@ class UserHome extends React.Component {
   }
 
   render() {
-    const {email} = this.props.user
-    const profile = this.props.userProfile
+    const {firstName, lastName, email, address, isAdmin} = this.props.user
+    const profile = this.props.userProfile || {}
     const container = {
       display: 'flex',
       justifyContent: 'space-between',
@@ -42,38 +42,34 @@ class UserHome extends React.Component {
       width: '40%'
     }
 
-    if (profile && profile.id) {
-      return (
-        <div>
-          <h3>Welcome, {email}</h3>
-          <div style={container}>
-            <div style={orderBox}>
-              <h3>My Orders</h3>
-              <hr />
-              <div>
-                {profile.orders.length ? (
-                  <Orders profile={profile} />
-                ) : (
-                  <p>No orders.</p>
-                )}
-              </div>
-            </div>
-            <div style={profileBox}>
-              <h3>My Profile</h3>
-              <hr />
-              <p>
-                Name: {profile.firstName} {profile.lastName}
-              </p>
-              <p>Email: {profile.email}</p>
-              <p>Address: {profile.address}</p>
-              {profile.isAdmin && <h4>Admin</h4>}
+    return (
+      <div>
+        <h3>Welcome, {email}</h3>
+        <div style={container}>
+          <div style={orderBox}>
+            <h3>My Orders</h3>
+            <hr />
+            <div>
+              {profile && profile.orders && profile.orders.length ? (
+                <Orders profile={profile} />
+              ) : (
+                <p>No orders.</p>
+              )}
             </div>
           </div>
+          <div style={profileBox}>
+            <h3>My Profile</h3>
+            <hr />
+            <p>
+              Name: {firstName} {lastName}
+            </p>
+            <p>Email: {email}</p>
+            <p>Address: {address}</p>
+            {isAdmin && <h4>Admin</h4>}
+          </div>
         </div>
-      )
-    } else {
-      return <h4>No user profile found</h4>
-    }
+      </div>
+    )
   }
 }
 
