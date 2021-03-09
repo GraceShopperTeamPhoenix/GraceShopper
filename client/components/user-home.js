@@ -42,7 +42,7 @@ class UserHome extends React.Component {
       width: '40%'
     }
 
-    if (profile.id) {
+    if (profile && profile.id) {
       return (
         <div>
           <h3>Welcome, {email}</h3>
