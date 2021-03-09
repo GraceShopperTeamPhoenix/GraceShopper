@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Order, Product} = require('../db/models')
 module.exports = router
 
 async function authorize(req, res, next) {
@@ -19,6 +19,39 @@ async function authorize(req, res, next) {
     next(error)
   }
 }
+
+// GET route (/api/users/:userId) to get single User and their orders
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      attributes: [
+        'id',
+        'email',
+        'address',
+        'firstName',
+        'lastName',
+        'isAdmin'
+      ],
+      where: {
+        id: req.params.userId
+      },
+      include: {
+        model: Order,
+        include: {
+          model: Product
+        },
+        where: {
+          status: 'received'
+        },
+        required: false,
+        right: true
+      }
+    })
+    res.json(user)
+  } catch (err) {
+    console.error('Error getting single user: ', err)
+  }
+})
 
 router.get('/', authorize, async (req, res, next) => {
   try {

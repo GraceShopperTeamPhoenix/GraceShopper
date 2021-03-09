@@ -95,7 +95,7 @@ router.post('/:productId', async (req, res, next) => {
 })
 
 //POST route to add items to the cart for a user
-router.post('/:userId/:productId', authorize, async (req, res, next) => {
+router.post('/:id/:productId', authorize, async (req, res, next) => {
   const cart = await Order.findOrCreate({
     include: [
       {
@@ -103,11 +103,11 @@ router.post('/:userId/:productId', authorize, async (req, res, next) => {
       }
     ],
     where: {
-      userId: req.params.userId,
+      userId: req.params.id,
       status: 'pending'
     },
     defaults: {
-      userId: req.params.userId,
+      userId: req.params.id,
       status: 'pending'
     }
   })
@@ -190,8 +190,8 @@ router.put('/:productId', async (req, res, next) => {
   }
 })
 
-//PUT route ('api/order/:userId/:productId') to decrement quantity of items for USER
-router.put('/:userId/:productId', authorize, async (req, res, next) => {
+//PUT route ('api/order/:id/:productId') to decrement quantity of items for USER
+router.put('/:id/:productId', authorize, async (req, res, next) => {
   let cart = await Order.findOne({
     include: [
       {
@@ -199,7 +199,7 @@ router.put('/:userId/:productId', authorize, async (req, res, next) => {
       }
     ],
     where: {
-      userId: req.params.userId,
+      userId: req.params.id,
       status: 'pending'
     }
   })
@@ -247,7 +247,7 @@ router.delete('/:productId', async (req, res, next) => {
 
 //DELETE route to remove an item from a logged in users cart
 
-router.delete('/:userId/:productId', authorize, async (req, res, next) => {
+router.delete('/:id/:productId', authorize, async (req, res, next) => {
   try {
     let cart = await Order.findOne({
       include: [
@@ -256,7 +256,7 @@ router.delete('/:userId/:productId', authorize, async (req, res, next) => {
         }
       ],
       where: {
-        userId: req.params.userId,
+        userId: req.params.id,
         status: 'pending'
       }
     })
