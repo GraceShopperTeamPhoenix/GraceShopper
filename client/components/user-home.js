@@ -22,31 +22,15 @@ class UserHome extends React.Component {
   render() {
     const {firstName, lastName, email, address, isAdmin} = this.props.user
     const profile = this.props.userProfile || {}
-    const container = {
-      display: 'flex',
-      justifyContent: 'space-between',
-      marginLeft: '12.5%',
-      marginRight: '12.5%'
-    }
-    const orderBox = {
-      border: '1px gray solid',
-      margin: '20px',
-      padding: '10px',
-      width: '40%'
-    }
-
-    const profileBox = {
-      border: '1px gray solid',
-      margin: '20px',
-      padding: '10px',
-      width: '40%'
-    }
 
     return (
       <div>
-        <h3>Welcome, {email}</h3>
-        <div style={container}>
-          <div style={orderBox}>
+        <div className="profileWelcome">
+          <h3>Welcome, {firstName}!</h3>
+        </div>
+
+        <div className="profileContainer">
+          <div className="profileOrderBox">
             <h3>My Orders</h3>
             <hr />
             <div>
@@ -57,7 +41,7 @@ class UserHome extends React.Component {
               )}
             </div>
           </div>
-          <div style={profileBox}>
+          <div className="profileBox">
             <h3>My Profile</h3>
             <hr />
             <p>

@@ -187,3 +187,28 @@ a:hover {
   justify-content: center;
   align-items: center;
 }
+
+.profileBox {
+  border: 1px gray solid;
+  margin: 20px;
+  padding: 10px;
+  width: 40%;
+}
+
+.profileOrderBox {
+  border: 1px gray solid;
+  margin: 20px;
+  padding: 10px;
+  width: 40%;
+}
+
+.profileContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 12.5%;
+  margin-right: 12.5%;
+}
+
+.profileWelcome {
+  text-align: center;
+}
