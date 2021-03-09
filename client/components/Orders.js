@@ -13,7 +13,7 @@ export const Orders = props => {
               return (
                 <div key={product.id}>
                   <p>
-                    {product.quantity} {product.name}
+                    {product.order_product.quantity} {product.name}
                     @ ${(product.price / 100).toFixed(2)}
                   </p>
                 </div>

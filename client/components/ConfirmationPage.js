@@ -66,7 +66,11 @@ class ConfirmationPage extends React.Component {
               <div id="cart-container">
                 <div>
                   {order.products.map(item => {
-                    let itemTotal = item.price / 100 * item.quantity
+                    let quantity =
+                      this.props.user.id && item.order_product
+                        ? item.order_product.quantity
+                        : item.quantity
+                    let itemTotal = item.price / 100 * quantity
                     cartTotal += itemTotal
                     return (
                       <div key={item.id} id="cart-product">
@@ -80,7 +84,7 @@ class ConfirmationPage extends React.Component {
 
                         <div>
                           <p>
-                            Quantity: {item.quantity} @ ${item.price / 100}
+                            Quantity: {quantity} @ ${item.price / 100}
                           </p>
                           <p>Item Total: ${itemTotal.toFixed(2)}</p>
                         </div>
