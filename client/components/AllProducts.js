@@ -36,12 +36,14 @@ export class AllProducts extends React.Component {
           <div className="pageHeader">
             <img src="/products.png" className="pageHeader" />
           </div>
+
           <select onChange={this.handleSelectChange} value={filter}>
             <option value="All">All</option>
             <option value="Succulents">Succulents</option>
             <option value="Aloe">Aloe</option>
             <option value="Cacti">Cacti</option>
           </select>
+
           <div className="flexbox-container">
             {products.map(product => (
               <div key={product.id} className="flex-item">

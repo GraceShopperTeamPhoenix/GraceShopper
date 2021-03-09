@@ -26,7 +26,7 @@ export class SingleProduct extends React.Component {
       return <div>No Product with this Id!</div>
     }
     return (
-      <div>
+      <div className="signal-product-page">
         <div>
           <h1>{product.name}</h1>
           <img src={`/${product.imageUrl}`} width="200px" />

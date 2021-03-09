@@ -187,3 +187,15 @@ a:hover {
   justify-content: center;
   align-items: center;
 }
+
+.signal-product-page {
+  max-width: 600px;
+  margin: auto;
+  padding: 10px;
+}
+
+.confirmation-page {
+  max-width: 600px;
+  margin: auto;
+  padding: 10px;
+}

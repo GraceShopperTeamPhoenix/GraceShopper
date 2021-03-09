@@ -55,47 +55,45 @@ class ConfirmationPage extends React.Component {
       if (order.products.length > 0) {
         let cartTotal = 0
         return (
-          <div>
+          <div className="confirmation-page">
+            <h3>Your order is in!</h3>
+            <div>A confirmation email has been sent to {email}</div>
+            <br />
             <div>
-              <h3>Your order is in!</h3>
-              <div>A confirmation email has been sent to {email}</div>
-              <br />
+              <h3>Here's what you ordered:</h3>
+            </div>
+            <div id="cart-container">
               <div>
-                <h3>Here's what you ordered:</h3>
-              </div>
-              <div id="cart-container">
-                <div>
-                  {order.products.map(item => {
-                    let quantity =
-                      this.props.user.id && item.order_product
-                        ? item.order_product.quantity
-                        : item.quantity
-                    let itemTotal = item.price / 100 * quantity
-                    cartTotal += itemTotal
-                    return (
-                      <div key={item.id} id="cart-product">
-                        <div>
-                          <img src={item.imageUrl} width="75px" />
-                        </div>
-
-                        <div>
-                          <h2>{item.name}</h2>
-                        </div>
-
-                        <div>
-                          <p>
-                            Quantity: {quantity} @ ${item.price / 100}
-                          </p>
-                          <p>Item Total: ${itemTotal.toFixed(2)}</p>
-                        </div>
+                {order.products.map(item => {
+                  let quantity =
+                    this.props.user.id && item.order_product
+                      ? item.order_product.quantity
+                      : item.quantity
+                  let itemTotal = item.price / 100 * quantity
+                  cartTotal += itemTotal
+                  return (
+                    <div key={item.id} id="cart-product">
+                      <div>
+                        <img src={item.imageUrl} width="75px" />
                       </div>
-                    )
-                  })}
-                </div>
+
+                      <div>
+                        <h2>{item.name}</h2>
+                      </div>
+
+                      <div>
+                        <p>
+                          Quantity: {quantity} @ ${item.price / 100}
+                        </p>
+                        <p>Item Total: ${itemTotal.toFixed(2)}</p>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+              <div>
                 <div>
-                  <div>
-                    <h1>Total: ${cartTotal.toFixed(2)}</h1>
-                  </div>
+                  <h1>Total: ${cartTotal.toFixed(2)}</h1>
                 </div>
               </div>
             </div>
