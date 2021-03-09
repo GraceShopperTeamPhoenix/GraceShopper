@@ -9,9 +9,12 @@ export class AllProducts extends React.Component {
     super(props)
     console.log('props', props)
     this.state = {
-      filter: 'All' || props.location.filter
+      filter: 'All' || props.location.filter,
+      currentPage: 1,
+      plantsPerPage: 16
     }
     this.handleSelectChange = this.handleSelectChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
     this.props.getProducts()
@@ -23,9 +26,14 @@ export class AllProducts extends React.Component {
   handleSelectChange(evt) {
     this.setState({filter: evt.target.value})
   }
+  handleClick(event) {
+    this.setState({
+      currentPage: Number(event.target.id)
+    })
+  }
   render() {
     console.log(this.state.filter)
-    const {filter} = this.state
+    const {filter, currentPage, plantsPerPage} = this.state
     let products = this.props.products.all
     products = products.filter(product => {
       if (filter === 'All') return product
@@ -33,6 +41,28 @@ export class AllProducts extends React.Component {
       if (filter === 'Cacti') return product.category === 'cactus'
       if (filter === 'Aloe') return product.category === 'aloe'
     })
+    const indexOfLastPlant = currentPage * plantsPerPage
+    const indexOfFirstPlant = indexOfLastPlant - plantsPerPage
+    const currentPlants = products.slice(indexOfFirstPlant, indexOfLastPlant)
+
+    const pageNumbers = []
+    for (let i = 1; i <= Math.ceil(products.length / plantsPerPage); i++) {
+      pageNumbers.push(i)
+    }
+
+    const renderPageNumbers = pageNumbers.map(number => {
+      return (
+        <button
+          type="button"
+          key={number}
+          id={number}
+          onClick={this.handleClick}
+        >
+          {number}
+        </button>
+      )
+    })
+
     if (products.length === 0) {
       return <div>No Products</div>
     } else {
@@ -48,8 +78,9 @@ export class AllProducts extends React.Component {
             <option value="Aloe">Aloe</option>
             <option value="Cacti">Cacti</option>
           </select>
+          <div id="page-numbers">{renderPageNumbers}</div>
           <div className="flexbox-container">
-            {products.map(product => (
+            {currentPlants.map(product => (
               <div key={product.id} className="flex-item">
                 <Link to={`/products/${product.id}`}>{product.name}</Link>
                 <br />
@@ -59,6 +90,7 @@ export class AllProducts extends React.Component {
               </div>
             ))}
           </div>
+          <div id="page-numbers">{renderPageNumbers}</div>
         </div>
       )
     }
