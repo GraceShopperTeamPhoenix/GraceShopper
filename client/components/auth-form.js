@@ -11,6 +11,12 @@ const AuthForm = props => {
 
   return (
     <div>
+      <div className="pageHeader">
+        <img src="/signUp.png" className="pageHeader" />
+      </div>
+      <p>Please fill in this form to create an account.</p>
+      <br />
+
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="firstName">
@@ -42,6 +48,7 @@ const AuthForm = props => {
           </label>
           <input name="password" type="password" />
         </div>
+
         <div>
           <button type="submit">{displayName}</button>
         </div>

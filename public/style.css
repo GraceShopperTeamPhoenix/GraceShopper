@@ -1,7 +1,6 @@
 .navbar {
   width: 100%;
   margin: auto;
-  display: flex;
   justify-content: space-around;
 }
 .logo {
@@ -22,7 +21,7 @@
 .pageHeader {
   mix-blend-mode: multiply;
   text-align: center;
-  height: 15vh;
+  height: 13vh;
 }
 .container {
   display: flex;
@@ -46,8 +45,16 @@
   mix-blend-mode: multiply;
   width: 200px;
 }
+
+.header {
+  padding: 5px;
+  text-align: center;
+  color: white;
+}
+
 body {
   font-family: alegreya;
+  font-size: 20px;
   color: black;
   margin: 0px;
   height: 100%;
@@ -95,17 +102,18 @@ form div {
   align-content: center;
 }
 .flex-item {
-  flex: 1 0 21%;
+  flex: 1 0 18%;
   border: rgb(116, 140, 120);
-  margin: 5px;
-  border-style: groove;
+  margin: 10px;
+  /* border-style: groove; */
   text-align: center;
   padding: 5px;
   mix-blend-mode: multiply;
+  background-color: whitesmoke;
 }
 #prodImg {
-  width: 100px;
-  height: 100px;
+  width: 250px;
+  height: 250px;
 }
 button {
   display: inline-block;
@@ -128,13 +136,28 @@ button:hover {
   mix-blend-mode: multiply;
 }
 
-#navbar-primary.navbar-default {
-  background: rgb(183, 201, 159, 0.3);
-  border: none;
+/* Style the top navigation bar */
+.navbar {
+  overflow: hidden;
+  background-color: rgb(183, 201, 159, 0.3);
 }
-.navbar-nav {
-  width: 100%;
+
+.navbar a {
+  float: left;
+  display: block;
+  color: black;
   text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+.navbar a.right {
+  float: right;
+}
+
+.navbar a:hover {
+  background-color: rgb(111, 131, 109);
+  color: black;
 }
 
 a {
@@ -144,4 +167,23 @@ a {
 }
 a:hover {
   background-color: rgb(116, 140, 120, 0.5);
+}
+
+.cart__image {
+  size: 1px;
+  object-fit: contain;
+  display: inline-block;
+}
+
+.cart__counter {
+  height: 40px;
+  width: 40px;
+  border: 1px solid var(--secondary-color);
+  border-radius: 50%;
+  color: var(--dark-color);
+  background: var(--light-color);
+  font-size: 25px;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
 }

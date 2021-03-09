@@ -11,6 +11,10 @@ const LogIn = props => {
 
   return (
     <div className="login">
+      <div className="pageHeader">
+        <img src="/login.png" className="pageHeader" />
+      </div>
+
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email">

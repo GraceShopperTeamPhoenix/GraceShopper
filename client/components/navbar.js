@@ -5,62 +5,58 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
-  <div>
-    <header role="banner">
-      <img
-        id="logo-main"
-        src="/header3.png"
-        width="200"
-        alt="Logo Thing main logo"
-      />
-      <nav
-        id="navbar-primary"
-        className="navbar navbar-default"
-        role="navigation"
-      >
-        <div className="container-fluid">
-          <div className="navbar-header" />
-          {isLoggedIn ? (
-            isAdmin ? (
-              <div i wanna do liker>
-                {/* The navbar will show these links after you log in as an Amin*/}
-                <Link to="/home" id="link">Home</Link>
-                <Link to="/users">Users</Link>
-                <Link to="/products">Products</Link>
-                <Link to="/cart">Cart</Link>
-                <Link to="/addproduct">Add Product</Link>
-                <Link to="/user">My Page</Link>
-                <a href="#" onClick={handleClick}>
-                  Logout
-                </a>
-              </div>
-            ) : (
-              <div>
-                {/* The navbar will show these links after you log in */}
-                <Link to="/home">Home</Link>
-                <Link to="/products">Products</Link>
-                <Link to="/cart">Cart</Link>
-                <Link to="/user">My Page</Link>
-                <a href="#" onClick={handleClick}>
-                  Logout
-                </a>
-              </div>
-            )
-          ) : (
-            <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to="/home" id="link">
-                Home
-              </Link>
-              <Link to="/signup">Sign Up</Link>
-              <Link to="/products">Products</Link>
-              <Link to="/cart">Cart</Link>
-              <Link to="/login">Login</Link>
-            </div>
-          )}
+  <div className="navbar">
+    {isLoggedIn ? (
+      isAdmin ? (
+        <div>
+          {/* The navbar will show these links after you log in as an Amin*/}
+          <Link to="/home" id="link">
+            Home
+          </Link>
+          <Link to="/users">Users</Link>
+          <Link to="/products">Products</Link>
+          <Link to="/addproduct">Add Product</Link>
+          <Link to="/user">My Page</Link>
+          <Link to="/cart" className="right">
+            <img className="cart_image" src="cart.png" alt="shopping cart" />
+            {/* <div className="cart_counter">18</div> */}
+          </Link>
+          <a href="#" onClick={handleClick} className="right">
+            Logout
+          </a>
         </div>
-      </nav>
-    </header>
+      ) : (
+        <div>
+          {/* The navbar will show these links after you log in */}
+          <Link to="/home">Home</Link>
+          <Link to="/products">Products</Link>
+          <Link to="/user">My Page</Link>
+          <Link to="/cart" className="right">
+            <img className="cart_image" src="cart.png" alt="shopping cart" />
+          </Link>
+          <a href="#" onClick={handleClick} className="right">
+            Logout
+          </a>
+        </div>
+      )
+    ) : (
+      <div>
+        {/* The navbar will show these links before you log in */}
+        <Link to="/home" id="link">
+          Home
+        </Link>
+        <Link to="/products">Products</Link>
+        <Link to="/signup" className="right">
+          Sign Up
+        </Link>
+        <Link to="/login" className="right">
+          Login
+        </Link>
+        <Link to="/cart" className="right">
+          <img className="cart_image" src="cart.png" alt="cart" />
+        </Link>
+      </div>
+    )}
   </div>
 )
 
