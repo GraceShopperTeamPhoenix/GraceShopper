@@ -48,6 +48,7 @@
 }
 body {
   font-family: alegreya;
+  font-size: 20px;
   color: black;
   margin: 0px;
   height: 100%;
@@ -104,8 +105,8 @@ form div {
   mix-blend-mode: multiply;
 }
 #prodImg {
-  width: 100px;
-  height: 100px;
+  width: 250px;
+  height: 250px;
 }
 button {
   display: inline-block;
@@ -128,13 +129,28 @@ button:hover {
   mix-blend-mode: multiply;
 }
 
-#navbar-primary.navbar-default {
-  background: rgb(183, 201, 159, 0.3);
-  border: none;
+/* Style the top navigation bar */
+.navbar {
+  overflow: hidden;
+  background-color: rgb(183, 201, 159, 0.3);
 }
-.navbar-nav {
-  width: 100%;
+
+.navbar a {
+  float: left;
+  display: block;
+  color: black;
   text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+.navbar a.right {
+  float: right;
+}
+
+.navbar a:hover {
+  background-color: rgb(111, 131, 109);
+  color: black;
 }
 
 a {

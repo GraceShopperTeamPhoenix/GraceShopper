@@ -13,53 +13,58 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
         width="200"
         alt="Logo Thing main logo"
       />
-      <nav
-        id="navbar-primary"
-        className="navbar navbar-default"
-        role="navigation"
-      >
-        <div className="container-fluid">
-          <div className="navbar-header" />
-          {isLoggedIn ? (
-            isAdmin ? (
-              <div i wanna do liker>
-                {/* The navbar will show these links after you log in as an Amin*/}
-                <Link to="/home" id="link">Home</Link>
-                <Link to="/users">Users</Link>
-                <Link to="/products">Products</Link>
-                <Link to="/cart">Cart</Link>
-                <Link to="/addproduct">Add Product</Link>
-                <Link to="/user">My Page</Link>
-                <a href="#" onClick={handleClick}>
-                  Logout
-                </a>
-              </div>
-            ) : (
-              <div>
-                {/* The navbar will show these links after you log in */}
-                <Link to="/home">Home</Link>
-                <Link to="/products">Products</Link>
-                <Link to="/cart">Cart</Link>
-                <Link to="/user">My Page</Link>
-                <a href="#" onClick={handleClick}>
-                  Logout
-                </a>
-              </div>
-            )
-          ) : (
-            <div>
-              {/* The navbar will show these links before you log in */}
+      <div className="navbar">
+        {isLoggedIn ? (
+          isAdmin ? (
+            <div i wanna do liker>
+              {/* The navbar will show these links after you log in as an Amin*/}
               <Link to="/home" id="link">
                 Home
               </Link>
-              <Link to="/signup">Sign Up</Link>
+              <Link to="/users">Users</Link>
               <Link to="/products">Products</Link>
-              <Link to="/cart">Cart</Link>
-              <Link to="/login">Login</Link>
+              <Link to="/cart" className="right">
+                Cart
+              </Link>
+              <Link to="/addproduct">Add Product</Link>
+              <Link to="/user">My Page</Link>
+              <a href="#" onClick={handleClick}>
+                Logout
+              </a>
             </div>
-          )}
-        </div>
-      </nav>
+          ) : (
+            <div>
+              {/* The navbar will show these links after you log in */}
+              <Link to="/home">Home</Link>
+              <Link to="/products">Products</Link>
+              <Link to="/cart" className="right">
+                Cart
+              </Link>
+              <Link to="/user">My Page</Link>
+              <a href="#" onClick={handleClick}>
+                Logout
+              </a>
+            </div>
+          )
+        ) : (
+          <div>
+            {/* The navbar will show these links before you log in */}
+            <Link to="/home" id="link">
+              Home
+            </Link>
+            <Link to="/signup" className="right">
+              Sign Up
+            </Link>
+            <Link to="/products">Products</Link>
+            <Link to="/cart" className="right">
+              Cart
+            </Link>
+            <Link to="/login" className="right">
+              Login
+            </Link>
+          </div>
+        )}
+      </div>
     </header>
   </div>
 )
