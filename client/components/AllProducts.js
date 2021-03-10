@@ -74,12 +74,18 @@ export class AllProducts extends React.Component {
 
           <span>Show: </span>
 
-          <select onChange={this.handleSelectChange} value={filter}>
-            <option value="All">All</option>
-            <option value="Succulents">Succulents</option>
-            <option value="Aloe">Aloe</option>
-            <option value="Cacti">Cacti</option>
-          </select>
+          <div id="mainSelection">
+            <select
+              onChange={this.handleSelectChange}
+              value={filter}
+              type="button"
+            >
+              <option value="All">All</option>
+              <option value="Succulents">Succulents</option>
+              <option value="Aloe">Aloe</option>
+              <option value="Cacti">Cacti</option>
+            </select>
+          </div>
 
           <div id="page-numbers">{renderPageNumbers}</div>
 
