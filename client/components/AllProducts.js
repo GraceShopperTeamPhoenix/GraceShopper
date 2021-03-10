@@ -71,7 +71,9 @@ export class AllProducts extends React.Component {
           <div className="pageHeader">
             <img src="/products.png" className="pageHeader" />
           </div>
+
           <span>Show: </span>
+
           <div id="mainSelection">
             <select
               onChange={this.handleSelectChange}
@@ -84,7 +86,9 @@ export class AllProducts extends React.Component {
               <option value="Cacti">Cacti</option>
             </select>
           </div>
+
           <div id="page-numbers">{renderPageNumbers}</div>
+
           <div className="flexbox-container">
             {currentPlants.map(product => (
               <div key={product.id} className="flex-item">

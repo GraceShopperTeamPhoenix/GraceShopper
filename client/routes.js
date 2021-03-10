@@ -50,6 +50,7 @@ class Routes extends Component {
                 <Route path="/users" component={AllUsers} />
                 <Route path="/addproduct" component={AddProduct} />
                 <Route path="/editproduct/:id" component={EditProduct} />
+                <Route component={Home} />
               </Switch>
             )}
           </Switch>
