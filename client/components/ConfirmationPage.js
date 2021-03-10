@@ -62,8 +62,8 @@ class ConfirmationPage extends React.Component {
             <div>
               <h3>Here's what you ordered:</h3>
             </div>
-            <div id="cart-container">
-              <div>
+            <div className="conf-container">
+              <div className="conf-all-products">
                 {order.products.map(item => {
                   let quantity =
                     this.props.user.id && item.order_product
@@ -72,9 +72,9 @@ class ConfirmationPage extends React.Component {
                   let itemTotal = item.price / 100 * quantity
                   cartTotal += itemTotal
                   return (
-                    <div key={item.id} id="cart-product">
+                    <div key={item.id} className="conf-product">
                       <div>
-                        <img src={item.imageUrl} width="75px" />
+                        <img src={item.imageUrl} id="prodImg" />
                       </div>
 
                       <div>
@@ -85,17 +85,17 @@ class ConfirmationPage extends React.Component {
                         <p>
                           Quantity: {quantity} @ ${item.price / 100}
                         </p>
-                        <p>Item Total: ${itemTotal.toFixed(2)}</p>
                       </div>
                     </div>
                   )
                 })}
               </div>
+
+              {/* <div> */}
               <div>
-                <div>
-                  <h1>Total: ${cartTotal.toFixed(2)}</h1>
-                </div>
+                <h1>Total: ${cartTotal.toFixed(2)}</h1>
               </div>
+              {/* </div> */}
             </div>
           </div>
         )
