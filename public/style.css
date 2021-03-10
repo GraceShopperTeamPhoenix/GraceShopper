@@ -29,14 +29,19 @@
   flex-wrap: wrap;
   align-content: center;
 }
-/* .majorIcon {
-  mix-blend-mode: multiply;
-  width: 3;
-  height: 40vh;
+select {
+  border: 0 none;
+  font-family: alegreya;
+  color: black;
+  font-size: 20px;
+  padding: 6px 10px;
+  margin: 2px;
+  width: 200px;
+  border-radius: 4px;
+  background-color: rgb(183, 201, 159);
+}
 
-} */
 .minor-Icon {
-  /* flex: 1 0 30%; */
   justify-content: center;
   margin: auto;
   align-content: center;
@@ -105,7 +110,6 @@ form div {
   flex: 1 0 18%;
   border: rgb(116, 140, 120);
   margin: 10px;
-  /* border-style: groove; */
   text-align: center;
   padding: 5px;
   mix-blend-mode: multiply;
@@ -119,6 +123,7 @@ button {
   display: inline-block;
   border: none;
   padding: 6px 12px;
+  margin: 2px;
   margin-bottom: 0;
   font-size: 14px;
   font-weight: normal;

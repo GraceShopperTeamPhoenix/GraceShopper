@@ -92,8 +92,8 @@ export class Cart extends React.Component {
             <div className="pageHeader">
               <img src="/cartHeader.png" className="pageHeader" />
             </div>
-            <div className="flexbox-container">
-              <div>
+            <div className="container">
+              <div className="flexbox-container flex-item-two">
                 {order.products.map(item => {
                   let quantity =
                     this.props.user.id && item.order_product
@@ -143,7 +143,7 @@ export class Cart extends React.Component {
                   )
                 })}
               </div>
-              <div>
+              <div className="flex-item-three">
                 <div>
                   <h1>Total: ${cartTotal.toFixed(2)}</h1>
                   <button type="submit" onClick={this.handleSubmit}>
